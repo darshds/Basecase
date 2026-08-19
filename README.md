@@ -70,9 +70,12 @@ Three deliberate departures, all noted inline in the code:
 2. **The `LocalBusiness` JSON-LD omits the postal address** while any address field in
    `CONTACT` is still a `[bracketed]` placeholder, rather than publishing junk to
    Google's structured-data index. Fill all five fields in and the block appears.
-3. **The /about opening sentence is grammatical.** The prototype reads "We are engineers
-   arrived with master's degrees"; this reads "We are engineers who arrived with master's
-   degrees". Same copy otherwise.
+3. **The /about opening sentence was corrected on the facts.** The prototype reads "We are
+   engineers arrived with master's degrees, good overseas experience" — ungrammatical, and
+   wrong: the master's degrees were earned at an Australian university, and the professional
+   experience is what was gained overseas. Rewritten accordingly. The recursive "no local
+   experience without a job requiring local experience" beat is kept, since the whole brand
+   rests on it.
 
 `FOUNDERS` exists in the prototype's logic class but is never rendered by its template,
 so there is no founder section here either. The founder bios and 4:5 portrait slots

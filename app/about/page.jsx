@@ -19,9 +19,9 @@ export default function AboutPage() {
           <span className="tag">Origin</span>
           <div className="prose">
             <p className="lede lede-ink">
-              We are engineers who arrived with master&apos;s degrees, good overseas experience, and a
-              problem: no local experience, and no way to get local experience without a job that
-              required local experience.
+              We are engineers with master&apos;s degrees from an Australian university and
+              professional experience earned overseas — and one problem: no local experience,
+              and no way to get local experience without a job that required local experience.
             </p>
             <p>
               It&apos;s a familiar shape. In programming, a function that calls itself with no exit
