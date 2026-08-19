@@ -23,7 +23,9 @@ body{
 .grid-fade{position:fixed;inset:0;pointer-events:none;z-index:0;
   background:radial-gradient(ellipse at 50% 0%,rgba(236,238,236,0) 0%,var(--paper) 78%)}
 nav,main,footer{position:relative;z-index:1}
-.wrap{max-width:1240px;margin:0 auto;padding:0 var(--gut)}
+/* 1240 left ~340px of dead margin either side on a 1920 screen, which made the whole
+   site read as a narrow column floating in the middle. */
+.wrap{max-width:1400px;margin:0 auto;padding:0 var(--gut)}
 a{color:var(--signal);text-decoration:none}
 a:hover{color:var(--ink)}
 button{font:inherit;cursor:pointer;border-radius:0}
@@ -66,9 +68,20 @@ input,select,textarea{border-radius:0}
 .nav-links a{font-family:var(--mono),monospace;font-size:12px;letter-spacing:.08em;
   text-transform:uppercase;color:var(--ink-soft);padding:4px 0;border-bottom:1px solid transparent}
 .nav-links a:hover{color:var(--ink);border-bottom-color:var(--signal)}
-.nav-burger{display:none;flex-direction:column;justify-content:center;gap:4px;
-  width:42px;height:38px;padding:0 10px;background:none;border:1px solid var(--rule)}
-.nav-burger span{display:block;height:1px;background:var(--ink)}
+/* Carries a visible MENU / CLOSE label, not a bare icon. The original was three 1px
+   hairlines inside a --rule border, which on a phone read as an empty box. */
+.nav-burger{display:none;align-items:center;gap:9px;min-height:44px;padding:9px 13px;
+  background:none;border:1px solid var(--ink);color:var(--ink);
+  font-family:var(--mono),monospace;font-size:11px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase}
+.nav-burger:hover{background:var(--ink);color:var(--paper)}
+.nav-burger:hover i span{background:var(--paper)}
+.nav-burger i{display:flex;flex-direction:column;justify-content:center;gap:4px;width:17px}
+.nav-burger i span{display:block;height:2px;background:var(--ink);
+  transition:transform .18s ease,opacity .18s ease}
+.nav-burger.is-open i span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-burger.is-open i span:nth-child(2){opacity:0}
+.nav-burger.is-open i span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 .nav-drawer{display:flex;flex-direction:column;border-top:1px solid var(--rule);background:var(--paper)}
 .nav-drawer a{padding:16px var(--gut);border-bottom:1px solid var(--rule);color:var(--ink);
   font-family:var(--mono),monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
@@ -79,17 +92,17 @@ input,select,textarea{border-radius:0}
 }
 
 /* hero */
-.hero{padding:clamp(52px,9vw,104px) var(--gut) clamp(40px,6vw,64px)}
+.hero{padding:clamp(40px,6vw,76px) var(--gut) clamp(32px,4.5vw,52px)}
 .status{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--rule);
   background:var(--paper);padding:6px 12px;margin-bottom:26px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--oxide);
   box-shadow:0 0 0 0 rgba(221,81,25,.55);animation:pulse 2.4s infinite}
 @keyframes pulse{70%{box-shadow:0 0 0 8px rgba(221,81,25,0)}100%{box-shadow:0 0 0 0 rgba(221,81,25,0)}}
-.hero-h{font-size:clamp(38px,8.4vw,104px);max-width:15ch}
+.hero-h{font-size:clamp(38px,8.4vw,118px);max-width:16ch}
 .hero-h em{font-style:normal;color:var(--signal)}
 .hero-sub{margin:26px 0 14px;font-size:clamp(16px,1.7vw,20px);color:var(--ink-soft);max-width:52ch;text-wrap:pretty}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px}
-.index{margin-top:clamp(44px,6vw,72px);border-top:1px solid var(--ink);
+.index{margin-top:clamp(32px,4vw,52px);border-top:1px solid var(--ink);
   display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
 .index-i{padding:14px 12px 16px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .index-i b{display:block;font-family:var(--mono),monospace;font-size:10px;letter-spacing:.14em;
@@ -103,7 +116,7 @@ input,select,textarea{border-radius:0}
 .page-head{padding:clamp(44px,7vw,80px) var(--gut) 0;display:flex;flex-direction:column;gap:14px}
 .page-h{font-size:clamp(34px,6vw,72px);max-width:18ch}
 .band{border-top:1px solid var(--ink);margin-top:clamp(44px,7vw,80px)}
-.band>.wrap{padding-top:clamp(56px,8vw,96px);padding-bottom:clamp(56px,8vw,96px)}
+.band>.wrap{padding-top:clamp(44px,5.5vw,76px);padding-bottom:clamp(44px,5.5vw,76px)}
 .band-head{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:24px}
 .band-head h2{font-size:clamp(28px,4.4vw,52px);flex:1 1 auto}
 .band-note{max-width:46ch;color:var(--ink-soft);font-size:15px;margin:0 0 34px;text-wrap:pretty}
@@ -117,7 +130,9 @@ input,select,textarea{border-radius:0}
 .tail{margin-top:36px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 
 /* service grid */
-.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+/* 340 not 300: at the 1400 container, 300 would fit 4 columns and leave the 6 services
+   as 4 + 2 orphans. 340 holds it at a clean 3 x 2. */
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
   border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
 .svc{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);
   padding:24px 22px 26px;transition:background .18s ease}
@@ -135,7 +150,8 @@ input,select,textarea{border-radius:0}
   border:1px solid var(--rule);padding:3px 7px;color:var(--ink-soft)}
 
 /* catalog teaser + catalog */
-.group-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+/* Same reasoning as .svc-grid: 6 catalog groups, kept at 3 x 2 rather than 5 + 1. */
+.group-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
   border-top:1px solid var(--ink);border-left:1px solid var(--rule)}
 .group{display:block;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);
   padding:20px;color:var(--ink);transition:background .18s ease}

@@ -31,18 +31,19 @@ export default function Nav() {
         <Link className="btn nav-cta" href="/contact">Get a quote</Link>
 
         <button
-          className="nav-burger"
+          className={open ? 'nav-burger is-open' : 'nav-burger'}
           type="button"
           aria-expanded={open}
-          aria-label="Menu"
+          aria-controls="nav-drawer"
           onClick={() => setOpen(!open)}
         >
-          <span /><span /><span />
+          <i aria-hidden="true"><span /><span /><span /></i>
+          {open ? 'Close' : 'Menu'}
         </button>
       </div>
 
       {open && (
-        <div className="nav-drawer">
+        <div className="nav-drawer" id="nav-drawer">
           {LINKS.map((l) => (
             <Link key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</Link>
           ))}
