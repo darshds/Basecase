@@ -117,8 +117,12 @@ input,select,textarea{border-radius:0}
 .page-h{font-size:clamp(34px,6vw,72px);max-width:18ch}
 .band{border-top:1px solid var(--ink);margin-top:clamp(44px,7vw,80px)}
 .band>.wrap{padding-top:clamp(44px,5.5vw,76px);padding-bottom:clamp(44px,5.5vw,76px)}
-.band-head{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:24px}
-.band-head h2{font-size:clamp(28px,4.4vw,52px);flex:1 1 auto}
+/* Stacked, not a baseline row. Side by side, the label pushed the heading ~390px
+   inward while the intro copy and every grid below it started at the container edge,
+   so the heading was the only element off the left margin. Stacking also matches
+   .page-head, which /services and /about already use. */
+.band-head{display:flex;flex-direction:column;gap:12px;margin-bottom:26px}
+.band-head h2{font-size:clamp(28px,4.4vw,52px)}
 .band-note{max-width:46ch;color:var(--ink-soft);font-size:15px;margin:0 0 34px;text-wrap:pretty}
 .split{display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,64px)}
 .split>:first-child{flex:0 1 300px}
