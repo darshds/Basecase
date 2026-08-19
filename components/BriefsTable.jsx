@@ -8,6 +8,7 @@ export default function BriefsTable({ briefs }) {
   const [rows, setRows] = useState(briefs);
   const [q, setQ] = useState('');
   const [armed, setArmed] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   const shown = useMemo(() => {
     const needle = q.trim().toLowerCase();
@@ -30,13 +31,20 @@ export default function BriefsTable({ briefs }) {
   }
 
   async function clearAll() {
+    setFailed(false);
     if (!armed) {
       setArmed(true);
       setTimeout(() => setArmed(false), 4000);
       return;
     }
     setArmed(false);
-    await fetch('/api/briefs', { method: 'DELETE' });
+    // Same-origin so the browser attaches the basic-auth credentials it already holds
+    // for /admin. If this ever 401s, the session expired — reload and sign in again.
+    const res = await fetch('/admin/briefs/clear', { method: 'DELETE', credentials: 'same-origin' });
+    if (!res.ok) {
+      setFailed(true);
+      return;
+    }
     setRows([]);
   }
 
@@ -47,6 +55,8 @@ export default function BriefsTable({ briefs }) {
         <button className="btn btn-ghost" type="button" onClick={csv}>Download CSV</button>
         <button className="btn btn-danger" type="button" onClick={clearAll}>{armed ? 'Click again to confirm' : 'Clear all'}</button>
       </div>
+
+      {failed && <p className="err">Could not clear the inbox. Reload the page, sign in again, and retry.</p>}
 
       <p className="tag">{shown.length === 1 ? '1 brief' : shown.length + ' briefs'}</p>
 

@@ -6,6 +6,19 @@ import { notifyNewBrief } from '@/lib/notify';
 
 export const dynamic = 'force-dynamic';
 
+/**
+ * PUBLIC, WRITE-ONLY, BY DESIGN.
+ *
+ * This route is deliberately the only unauthenticated endpoint in the app, because the
+ * contact form has to reach it from any visitor's browser. It therefore exposes POST and
+ * nothing else — anything that reads or destroys briefs lives under /admin, where
+ * middleware.js gates it.
+ *
+ * Do not add a GET or DELETE handler here. An earlier version had both, unauthenticated,
+ * which let anyone dump every lead or wipe the table. Next.js answers 405 for the methods
+ * left undefined, which is the intended behaviour.
+ */
+
 function ip(request) {
   return request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'local';
 }
@@ -53,15 +66,4 @@ export async function POST(request) {
   await notifyNewBrief(brief, services);
 
   return NextResponse.json({ ref: brief.ref, at: brief.at }, { status: 201 });
-}
-
-export async function GET() {
-  const rows = await prisma.brief.findMany({ orderBy: { at: 'desc' } });
-  return NextResponse.json(rows.map((r) => ({ ...r, services: JSON.parse(r.services) })));
-}
-
-/** Two-click "Clear all" in the admin view. */
-export async function DELETE() {
-  await prisma.brief.deleteMany({});
-  return NextResponse.json({ ok: true });
 }

@@ -33,7 +33,8 @@ app/
   about/page.jsx          /about origin story + "what that buys you"
   contact/page.jsx        /contact intake form
   admin/briefs/page.jsx   /admin/briefs inbox (server-rendered from Prisma)
-  api/briefs/route.js     POST (create) · GET (list) · DELETE (clear all)
+  admin/briefs/clear/     DELETE clear-all — under /admin so basic auth covers it
+  api/briefs/route.js     POST only — the public intake endpoint, write-only
   sitemap.js robots.js    SEO endpoints
 components/
   Nav.jsx                 client: sticky nav + mobile drawer
@@ -98,6 +99,24 @@ brief to `BRIEF_TO` via Resend. The database is the source of truth; the email i
 convenience and is allowed to fail silently. `/admin/briefs` server-renders straight
 from Postgres on every request, and its "Download CSV" button exports whatever the
 search box is currently showing.
+
+## The security boundary
+
+One rule: **anything that reads or deletes briefs lives under `/admin/`**, which
+[middleware.js](middleware.js) gates with basic auth. The single exception is
+`POST /api/briefs`, which is write-only and must stay public so the contact form works
+for visitors.
+
+| Endpoint | Auth | Method |
+|---|---|---|
+| `/api/briefs` | none, by design | `POST` only — 405 for anything else |
+| `/admin/briefs` | basic auth | inbox UI |
+| `/admin/briefs/clear` | basic auth | `DELETE` clear-all |
+
+An earlier version exposed `GET` and `DELETE` on `/api/briefs` with no auth at all,
+which let anyone dump every lead or wipe the table. If you add an endpoint that returns
+brief data, put it under `/admin/` — a sibling path is not covered, and browsers also
+won't forward the cached basic-auth credentials to one.
 
 ## Deploying to Vercel
 
