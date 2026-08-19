@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Neon Postgres.
+//
+// `url` must be Neon's POOLED connection string (host contains `-pooler`), because
+// serverless functions open a connection per invocation and would otherwise exhaust
+// Postgres' connection limit under any real traffic. `directUrl` must be the UNPOOLED
+// string: migrations need a real session, which pgbouncer's transaction pooling cannot
+// give them.
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Brief {
+  id       Int      @id @default(autoincrement())
+  ref      String   @unique
+  at       DateTime @default(now())
+  name     String
+  email    String
+  phone    String   @default("")
+  company  String   @default("")
+  site     String   @default("")
+  services String // JSON array of strings
+  budget   String
+  timeline String
+  heard    String
+  message  String
+
+  @@index([at])
+}
