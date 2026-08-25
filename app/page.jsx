@@ -1,14 +1,22 @@
 import Link from 'next/link';
 import ServiceGrid from '@/components/ServiceGrid';
-import { SERVICE_INDEX, CATALOG, STEPS } from '@/lib/data';
+import ProjectsShowcase from '@/components/ProjectsShowcase';
+import ClientMarquee from '@/components/ClientMarquee';
+import { SERVICE_INDEX, CATALOG, STEPS, PROJECTS, STUDIO_STATS } from '@/lib/data';
 
 export default function HomePage() {
+  const liveCount = PROJECTS.filter((p) => p.status === 'live').length;
+  const soonCount = PROJECTS.filter((p) => p.status === 'coming_soon').length;
+
   return (
     <>
+      {/* Hero Section */}
       <section className="wrap hero">
         <div className="status reveal" style={{ animationDelay: '.05s' }}>
           <span className="dot" />
-          <span className="tag">Taking on new projects. Replies within one business day</span>
+          <span className="tag">
+            Taking on new projects · {liveCount} Live Client Builds &amp; {soonCount} Staging Alpha
+          </span>
         </div>
 
         <h1 className="disp hero-h reveal" style={{ animationDelay: '.12s' }}>
@@ -16,18 +24,38 @@ export default function HomePage() {
         </h1>
 
         <p className="hero-sub reveal" style={{ animationDelay: '.22s' }}>
-          Basecase is an IT consulting and build studio. Websites, cloud, data, AI, and the
-          architecture underneath: designed, built, and kept running by one team instead of five vendors.
+          Basecase is an IT consulting and build studio. High-performance websites, e-commerce, cloud, data, AI, and the
+          architecture underneath: engineered, shipped, and kept running by one elite team instead of five vendors.
         </p>
 
-        <p className="tag reveal" style={{ animationDelay: '.26s', marginBottom: 32 }}>Every loop needs a base case.</p>
+        <p className="tag hero-tagline reveal" style={{ animationDelay: '.26s' }}>
+          Every loop needs a base case.
+        </p>
 
         <div className="hero-cta reveal" style={{ animationDelay: '.3s' }}>
-          <Link className="btn" href="/contact">Tell us what you need</Link>
-          <Link className="btn btn-ghost" href="/services">See everything we do</Link>
+          <Link className="btn" href="/contact">
+            Tell us what you need
+          </Link>
+          <Link className="btn btn-ghost" href="/work">
+            Explore Client Work ({PROJECTS.length})
+          </Link>
+          <Link className="btn btn-ghost" href="/services">
+            Full Service Catalog
+          </Link>
         </div>
 
-        <div className="index reveal" style={{ animationDelay: '.4s' }}>
+        {/* Quick Studio Stats Banner */}
+        <div className="stats-strip reveal" style={{ animationDelay: '.36s' }}>
+          {STUDIO_STATS.map((stat, idx) => (
+            <div className="stat-card" key={idx}>
+              <div className="stat-val">{stat.value}</div>
+              <div className="stat-lbl">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Index of Service Codes */}
+        <div className="index reveal" style={{ animationDelay: '.42s' }}>
           {SERVICE_INDEX.map((i) => (
             <div className="index-i" key={i.code}>
               <b>{i.code}</b>
@@ -37,10 +65,35 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Dynamic Client Ticker Marquee */}
+      <ClientMarquee />
+
+      {/* Section 01: Selected Client Websites & Productions */}
+      <section className="band" id="work">
+        <div className="wrap">
+          <div className="band-head">
+            <span className="tag">Section 01 / Selected Client Work</span>
+            <h2 className="disp">Client Websites &amp; Live Productions</h2>
+          </div>
+          <p className="band-note">
+            Real systems built for real businesses. From luxury ateliers and global experiential agencies to high-speed e-commerce stores and fitness tech platforms.
+          </p>
+
+          <ProjectsShowcase projects={PROJECTS} />
+
+          <div className="showcase-footer-link">
+            <Link className="btn btn-ghost" href="/work">
+              View Detailed Case Studies &amp; Tech Stacks →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 02: Core Capabilities */}
       <section className="band" id="capabilities">
         <div className="wrap">
           <div className="band-head">
-            <span className="tag">Section 01 / Core capabilities</span>
+            <span className="tag">Section 02 / Core capabilities</span>
             <h2 className="disp">What we&apos;re hired for most</h2>
           </div>
           <p className="band-note">
@@ -51,10 +104,11 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Section 03: Full Catalog */}
       <section className="band">
         <div className="wrap">
           <div className="band-head">
-            <span className="tag">Section 02 / Full catalog</span>
+            <span className="tag">Section 03 / Full catalog</span>
             <h2 className="disp">Everything else we can take on</h2>
           </div>
           <p className="band-note">
@@ -73,10 +127,11 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Section 04: Process */}
       <section className="band" id="process">
         <div className="wrap">
           <div className="band-head">
-            <span className="tag">Section 03 / How an engagement runs</span>
+            <span className="tag">Section 04 / How an engagement runs</span>
             <h2 className="disp">Four steps, no surprises</h2>
           </div>
           <div className="steps">
@@ -91,10 +146,11 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Section 05: Why Basecase */}
       <section className="band">
         <div className="wrap split">
           <div>
-            <span className="tag">Section 04 / Why Basecase</span>
+            <span className="tag">Section 05 / Why Basecase</span>
             <h2 className="disp split-h">Every loop needs a base case</h2>
           </div>
           <div>
@@ -108,16 +164,20 @@ export default function HomePage() {
               rebuilding every eighteen months, a database nobody wants to touch, a cloud bill nobody
               can explain. We find the condition that breaks it.
             </p>
-            <Link className="btn btn-ghost" href="/about">Read the whole story</Link>
+            <div className="tail">
+              <Link className="btn btn-ghost" href="/about">Read the whole story</Link>
+              <Link className="btn" href="/contact">Tell us what's looping</Link>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* Section 06: CTA */}
       <section className="band">
         <div className="wrap">
           <div className="cta">
             <div>
-              <span className="tag tag-invert">Section 05 / Project intake</span>
+              <span className="tag tag-invert">Section 06 / Project intake</span>
               <h2 className="disp cta-h">Tell us what&apos;s looping</h2>
               <p className="cta-p">
                 Fill in what you know. Rough answers are fine. We reply within one business day.
