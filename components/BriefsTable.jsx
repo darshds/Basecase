@@ -39,7 +39,7 @@ export default function BriefsTable({ briefs }) {
     }
     setArmed(false);
     // Same-origin so the browser attaches the basic-auth credentials it already holds
-    // for /admin. If this ever 401s, the session expired — reload and sign in again.
+    // for /admin. If this ever 401s, the session expired , reload and sign in again.
     const res = await fetch('/admin/briefs/clear', { method: 'DELETE', credentials: 'same-origin' });
     if (!res.ok) {
       setFailed(true);

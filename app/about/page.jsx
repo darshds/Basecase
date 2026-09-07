@@ -2,11 +2,11 @@ import Link from 'next/link';
 import { BUYS } from '@/lib/data';
 
 export const metadata = {
-  title: 'About — Every Loop Needs a Base Case',
+  title: 'About , Every Loop Needs a Base Case',
   description:
     'Engineers with postgraduate degrees and international experience, building serious digital systems for Australian businesses. The story behind Basecase and why we exist.',
   openGraph: {
-    title: 'About Basecase — Every Loop Needs a Base Case',
+    title: 'About Basecase , Every Loop Needs a Base Case',
     description: 'The story behind Basecase: engineers who wrote their own base case.',
   },
 };
@@ -29,7 +29,7 @@ export default function AboutPage() {
           <div className="prose">
             <p className="lede lede-ink">
               We are engineers with master&apos;s degrees from an Australian university and
-              professional experience earned overseas — and one problem: no local experience,
+              professional experience earned overseas , and one problem: no local experience,
               and no way to get local experience without a job that required local experience.
             </p>
             <p>

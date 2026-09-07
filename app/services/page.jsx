@@ -90,7 +90,7 @@ export default function ServicesPage() {
             <div className="capabilities-footer-note">
               <strong>Need a multi-discipline build or combined architecture?</strong>
               <span>
-                Most clients commission consolidated sprints — combining Web Development, Cloud Deployment,
+                Most clients commission consolidated sprints , combining Web Development, Cloud Deployment,
                 and Technical SEO under a single fixed-price engagement.
               </span>
             </div>

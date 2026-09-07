@@ -7,7 +7,7 @@ import { CONTACT } from '@/lib/data';
  *
  * next/link prefetches on viewport entry in production. The prefetch hits the gate,
  * gets 401 with `WWW-Authenticate: Basic`, and Chrome answers that header by opening
- * a sign-in dialog for the whole origin — so every visitor who merely scrolled to the
+ * a sign-in dialog for the whole origin , so every visitor who merely scrolled to the
  * footer was asked for a password on the home page. It also pointed strangers and
  * crawlers straight at the lead inbox.
  *
@@ -22,12 +22,12 @@ export default function Footer() {
         <div className="footer-top">
           {/* Brand column */}
           <div className="footer-brand">
-            <Link className="mark" href="/" aria-label="Basecase Tech — home">
+            <Link className="mark" href="/" aria-label="Basecase Tech , home">
               <span className="mark-sq" aria-hidden="true">(<i />)</span>
               <span className="mark-txt">Basecase Tech</span>
             </Link>
             <p className="footer-tagline">
-              IT consulting &amp; build studio. Websites, cloud, data, AI, and the architecture underneath — engineered and kept running by one team.
+              IT consulting &amp; build studio. Websites, cloud, data, AI, and the architecture underneath , engineered and kept running by one team.
             </p>
             <div className="footer-status">
               <span className="live-pulse-dot" aria-hidden="true" />

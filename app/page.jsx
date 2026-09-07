@@ -7,7 +7,7 @@ import { SERVICE_INDEX, STEPS, PROJECTS, STUDIO_STATS } from '@/lib/data';
 export const metadata = {
   title: 'Basecase · IT Consulting & Build Studio',
   description:
-    'We build the parts of your business that run on code. High-performance websites, e-commerce, cloud, AI, and the architecture underneath — engineered, shipped, and kept running by one elite team.',
+    'We build the parts of your business that run on code. High-performance websites, e-commerce, cloud, AI, and the architecture underneath , engineered, shipped, and kept running by one elite team.',
   openGraph: {
     title: 'Basecase · IT Consulting & Build Studio',
     description: 'Every loop needs a base case. We build the parts of your business that run on code.',
@@ -103,7 +103,7 @@ export default function HomePage() {
         <div className="stats-strip reveal" style={{ animationDelay: '.36s' }} role="list" aria-label="Studio statistics">
           {STUDIO_STATS.map((stat, idx) => (
             <div className="stat-card" key={idx} role="listitem">
-              <div className="stat-val" aria-label={`${stat.value} — ${stat.label}`}>{stat.value}</div>
+              <div className="stat-val" aria-label={`${stat.value} , ${stat.label}`}>{stat.value}</div>
               <div className="stat-lbl">{stat.label}</div>
             </div>
           ))}
@@ -117,7 +117,7 @@ export default function HomePage() {
       <div className="wrap directory-strip-wrap">
         <div className="index-container">
           <div className="index-label-bar">
-            <span>// 00. PRACTICE DIRECTORY <span className="index-label-desc">— JUMP DIRECTLY TO A SPECIALTY</span></span>
+            <span>// 00. PRACTICE DIRECTORY <span className="index-label-desc">, JUMP DIRECTLY TO A SPECIALTY</span></span>
             <span>6 CORE DISCIPLINES</span>
           </div>
           <nav className="index" aria-label="Core service practices">
@@ -174,7 +174,7 @@ export default function HomePage() {
             <h2 id="capabilities-heading" className="disp">Featured Engineering Capabilities</h2>
           </div>
           <p className="band-note">
-            Four core disciplines we are commissioned for most frequently — high-performance web applications, AI assistants, cloud architecture, and system design. Scoped as fixed-price sprints or dedicated engineering retainers.
+            Four core disciplines we are commissioned for most frequently , high-performance web applications, AI assistants, cloud architecture, and system design. Scoped as fixed-price sprints or dedicated engineering retainers.
           </p>
           <ServiceGrid featuredOnly={true} />
 

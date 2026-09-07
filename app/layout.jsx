@@ -21,7 +21,7 @@ export const metadata = {
     template: '%s · Basecase Tech',
   },
   description:
-    'Basecase Tech is an Australian IT consulting and build studio. High-performance websites, e-commerce, cloud, AI, and the architecture underneath — engineered, shipped, and kept running by one elite team.',
+    'Basecase Tech is an Australian IT consulting and build studio. High-performance websites, e-commerce, cloud, AI, and the architecture underneath , engineered, shipped, and kept running by one elite team.',
   keywords: [
     'Basecase Tech',
     'IT consulting Australia',
@@ -40,7 +40,7 @@ export const metadata = {
   publisher: 'Basecase Tech',
   openGraph: {
     title: 'Basecase Tech · IT Consulting & Build Studio',
-    description: 'High-performance websites, e-commerce, cloud, AI, and the architecture underneath — engineered, shipped, and kept running by one elite team.',
+    description: 'High-performance websites, e-commerce, cloud, AI, and the architecture underneath , engineered, shipped, and kept running by one elite team.',
     url: site,
     siteName: 'Basecase Tech',
     locale: 'en_AU',
@@ -75,7 +75,7 @@ const jsonLd = {
   '@type': 'ProfessionalService',
   name: 'Basecase Tech',
   legalName: 'Basecase Tech',
-  description: 'IT consulting & build studio — websites, cloud, data, AI, and the architecture underneath.',
+  description: 'IT consulting & build studio , websites, cloud, data, AI, and the architecture underneath.',
   slogan: 'Every loop needs a base case.',
   url: site,
   email: CONTACT.email,
@@ -105,7 +105,7 @@ const jsonLd = {
   }),
 };
 
-// Inline script to set theme before render — prevents flash of wrong theme.
+// Inline script to set theme before render , prevents flash of wrong theme.
 // This runs synchronously before the browser paints.
 const themeScript = `
 (function() {

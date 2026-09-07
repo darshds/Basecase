@@ -25,7 +25,7 @@ function ThemeToggle() {
   function toggle() {
     const next = theme === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
-    try { localStorage.setItem('bc-theme', next); } catch (_) {}
+    try { localStorage.setItem('bc-theme', next); } catch (_) { }
     setTheme(next);
   }
 
@@ -87,7 +87,7 @@ export default function Nav() {
       <nav className="nav" aria-label="Main navigation">
         <div className="wrap nav-in">
           {/* Wordmark */}
-          <Link className="mark" href="/" onClick={() => setOpen(false)} aria-label="Basecase Tech — home">
+          <Link className="mark" href="/" onClick={() => setOpen(false)} aria-label="Basecase Tech , home">
             <span className="mark-sq" aria-hidden="true">(<i />)</span>
             <span className="mark-txt">Basecase Tech</span>
           </Link>

@@ -8,7 +8,7 @@ export const metadata = {
     'Production websites, e-commerce platforms, SaaS portals, and experiential apps built for real clients by Basecase. Browse live deployments and staging builds.',
   openGraph: {
     title: 'Client Work & Production Builds · Basecase',
-    description: 'Production websites and applications built for real clients — from luxury ateliers to global event agencies.',
+    description: 'Production websites and applications built for real clients , from luxury ateliers to global event agencies.',
   },
 };
 
