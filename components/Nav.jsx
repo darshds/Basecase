@@ -6,8 +6,8 @@ import { useState, useEffect } from 'react';
 // Desktop nav — anchor links for smooth scroll
 const DESKTOP_LINKS = [
   { href: '/work', label: 'Client Work' },
-  { href: '/#capabilities', label: 'Capabilities' },
-  { href: '/services', label: 'Full Catalog' },
+  // { href: '/#capabilities', label: 'Capabilities' },
+  { href: '/services', label: 'Services' },
   { href: '/#process', label: 'Process' },
   { href: '/about', label: 'About' },
 ];
