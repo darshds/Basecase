@@ -53,17 +53,17 @@ export default function ProjectCard({ project, priority = false }) {
           </div>
         </div>
 
-        {/* Floating Launch Action */}
+        {/* Floating External Link Glyph */}
         <a 
           href={project.url} 
           target="_blank" 
           rel="noopener noreferrer"
           className="pcard-quick-launch"
-          title={`Open ${project.title} in new tab`}
+          title={`Open ${project.title} (${cleanUrl}) in new tab`}
           aria-label={`Open ${project.title} (${project.url})`}
         >
-          <span>{isLive ? 'Visit Site' : 'Preview Alpha'}</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <span>{cleanUrl}</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M7 17L17 7M17 7H7M17 7V17" />
           </svg>
         </a>

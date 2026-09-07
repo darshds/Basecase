@@ -2,21 +2,30 @@ import Link from 'next/link';
 import { BUYS } from '@/lib/data';
 
 export const metadata = {
-  title: 'About',
-  description: 'Every loop needs a base case. Why Basecase exists, and the method behind the name.',
+  title: 'About — Every Loop Needs a Base Case',
+  description:
+    'Engineers with postgraduate degrees and international experience, building serious digital systems for Australian businesses. The story behind Basecase and why we exist.',
+  openGraph: {
+    title: 'About Basecase — Every Loop Needs a Base Case',
+    description: 'The story behind Basecase: engineers who wrote their own base case.',
+  },
 };
 
 export default function AboutPage() {
   return (
     <>
-      <section className="wrap page-head">
+      {/* ── Page Header ───────────────────────────────────────────── */}
+      <section className="wrap page-head" aria-labelledby="about-heading">
         <span className="tag">About / Why Basecase</span>
-        <h1 className="disp page-h">Every loop needs a base case.</h1>
+        <h1 id="about-heading" className="disp page-h">Every loop needs a base case.</h1>
       </section>
 
-      <section className="band">
+      {/* ── Origin Story ──────────────────────────────────────────── */}
+      <section className="band" aria-labelledby="origin-heading">
         <div className="wrap split">
-          <span className="tag">Origin</span>
+          <div>
+            <span className="tag" id="origin-heading">Origin</span>
+          </div>
           <div className="prose">
             <p className="lede lede-ink">
               We are engineers with master&apos;s degrees from an Australian university and
@@ -43,10 +52,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="band">
+      {/* ── What That Buys You ────────────────────────────────────── */}
+      <section className="band" aria-labelledby="buys-heading">
         <div className="wrap">
           <div className="band-head">
             <span className="tag">What that buys you</span>
+            <h2 id="buys-heading" className="disp">Working with Basecase</h2>
           </div>
           <div className="buys">
             {BUYS.map((b) => (
@@ -59,6 +70,23 @@ export default function AboutPage() {
           </div>
           <div className="tail">
             <Link className="btn" href="/contact">Find your base case</Link>
+            <Link className="btn btn-ghost" href="/work">See our work</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ───────────────────────────────────────────────────── */}
+      <section className="band" aria-labelledby="about-cta-heading">
+        <div className="wrap">
+          <div className="cta">
+            <div>
+              <span className="tag tag-invert">Start Here</span>
+              <h2 id="about-cta-heading" className="disp cta-h">Tell us what&apos;s looping</h2>
+              <p className="cta-p">
+                Thirty minutes on a call is enough for us to understand your situation and tell you what we&apos;d do about it.
+              </p>
+            </div>
+            <Link className="btn btn-invert" href="/contact">Start a Project</Link>
           </div>
         </div>
       </section>

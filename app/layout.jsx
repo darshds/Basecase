@@ -16,15 +16,52 @@ const site = process.env.NEXT_PUBLIC_SITE_URL || 'https://basecase.example';
 
 export const metadata = {
   metadataBase: new URL(site),
-  title: { default: 'Basecase · IT consulting & build studio', template: '%s · Basecase' },
+  title: {
+    default: 'Basecase Tech · IT Consulting & Build Studio',
+    template: '%s · Basecase Tech',
+  },
   description:
-    'Basecase is an IT consulting and build studio. Websites, cloud, data, AI, and the architecture underneath, designed, built, and kept running by one team instead of five vendors.',
+    'Basecase Tech is an Australian IT consulting and build studio. High-performance websites, e-commerce, cloud, AI, and the architecture underneath — engineered, shipped, and kept running by one elite team.',
+  keywords: [
+    'Basecase Tech',
+    'IT consulting Australia',
+    'web development Australia',
+    'Next.js development',
+    'e-commerce development',
+    'cloud infrastructure',
+    'AI chatbots',
+    'system design',
+    'database setup',
+    'digital studio',
+    'software engineering',
+  ],
+  authors: [{ name: 'Basecase Tech' }],
+  creator: 'Basecase Tech',
+  publisher: 'Basecase Tech',
   openGraph: {
-    title: 'Basecase · IT consulting & build studio',
-    description: 'Every loop needs a base case.',
+    title: 'Basecase Tech · IT Consulting & Build Studio',
+    description: 'High-performance websites, e-commerce, cloud, AI, and the architecture underneath — engineered, shipped, and kept running by one elite team.',
     url: site,
-    siteName: 'Basecase',
+    siteName: 'Basecase Tech',
+    locale: 'en_AU',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Basecase Tech · IT Consulting & Build Studio',
+    description: 'Every loop needs a base case. We build the parts of your business that run on code.',
+    creator: '@basecase',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -35,13 +72,27 @@ const addressReady = Object.values(CONTACT.address).every((v) => v && !v.startsW
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  name: 'Basecase',
-  description: 'IT consulting & build studio',
+  '@type': 'ProfessionalService',
+  name: 'Basecase Tech',
+  legalName: 'Basecase Tech',
+  description: 'IT consulting & build studio — websites, cloud, data, AI, and the architecture underneath.',
   slogan: 'Every loop needs a base case.',
   url: site,
   email: CONTACT.email,
   telephone: CONTACT.phone,
+  areaServed: 'AU',
+  ...(CONTACT.abn && { taxID: CONTACT.abn }),
+  knowsAbout: [
+    'Web Development',
+    'E-Commerce Development',
+    'Cloud Architecture',
+    'AI & Chatbots',
+    'System Design',
+    'Database Architecture',
+    'Search Engine Optimisation',
+    'DevOps',
+    'Software Engineering',
+  ],
   ...(addressReady && {
     address: {
       '@type': 'PostalAddress',
@@ -54,9 +105,33 @@ const jsonLd = {
   }),
 };
 
+// Inline script to set theme before render — prevents flash of wrong theme.
+// This runs synchronously before the browser paints.
+const themeScript = `
+(function() {
+  try {
+    var stored = localStorage.getItem('bc-theme');
+    if (stored === 'dark' || stored === 'light') {
+      document.documentElement.setAttribute('data-theme', stored);
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  } catch(e) {}
+})();
+`;
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={[archivo.variable, sans.variable, mono.variable].join(' ')}>
+    <html
+      lang="en"
+      className={[archivo.variable, sans.variable, mono.variable].join(' ')}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>
         <div className="grid-fade" aria-hidden="true" />
         <Nav />

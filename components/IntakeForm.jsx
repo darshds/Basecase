@@ -86,7 +86,7 @@ export default function IntakeForm() {
           <div className="fld">
             <label htmlFor="i-name">Your name *</label>
             <input
-              id="i-name" type="text" autoComplete="name" placeholder="Priya Raman"
+              id="i-name" type="text" autoComplete="name" placeholder="Noah"
               value={values.name} onChange={set('name')}
               data-invalid={!!errors.name} aria-invalid={!!errors.name}
             />
@@ -95,7 +95,7 @@ export default function IntakeForm() {
           <div className="fld">
             <label htmlFor="i-email">Email *</label>
             <input
-              id="i-email" type="email" autoComplete="email" placeholder="priya@company.com"
+              id="i-email" type="email" autoComplete="email" placeholder="noah@company.com"
               value={values.email} onChange={set('email')}
               data-invalid={!!errors.email} aria-invalid={!!errors.email}
             />
