@@ -5,9 +5,8 @@ import Link from 'next/link';
 import { SERVICES } from '@/lib/data';
 
 /**
- * ServiceGrid , core practices with visual number hierarchy.
- * - Desktop/Laptop: Grid layout
- * - Mobile/Phone view: Horizontal swipe carousel with snap points & pagination dots
+ * ServiceGrid — core practices, clean card design.
+ * Desktop: grid layout. Mobile: horizontal swipe carousel.
  */
 export default function ServiceGrid({ featuredOnly = false, items, isServicesPage = false }) {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -33,46 +32,44 @@ export default function ServiceGrid({ featuredOnly = false, items, isServicesPag
 
   function renderCard(s, idx) {
     return (
-      <article className="svc" key={s.code} id={s.code} role="listitem">
-        {/* Large background number for visual hierarchy */}
-        <div className="svc-num" aria-hidden="true">
-          {String(idx + 1).padStart(2, '0')}
-        </div>
-
-        {/* Service code + duration */}
-        <div className="svc-id">
-          <span>{s.code}</span>
-          <i>{s.dur}</i>
+      <article className="svc-card" key={s.code} id={s.code} role="listitem">
+        {/* Top meta row: code pill + duration */}
+        <div className="svc-card-meta">
+          <span className="svc-card-code">{s.code}</span>
+          <span className="svc-card-dur">{s.dur}</span>
         </div>
 
         {/* Service name */}
-        <h3>{s.title}</h3>
+        <h3 className="svc-card-title">{s.title}</h3>
 
         {/* Description */}
-        <p>{s.desc}</p>
+        <p className="svc-card-desc">{s.desc}</p>
 
-        {/* Loop breaker statement */}
-        <p className="svc-loop">{s.loop}</p>
+        {/* Loop breaker insight */}
+        <div className="svc-card-insight">
+          <span className="svc-card-insight-icon" aria-hidden="true">↻</span>
+          <span>{s.loop.replace('Breaks the loop: ', '')}</span>
+        </div>
 
-        {/* Technology / tools */}
-        <div className="stack" aria-label={`Technologies for ${s.title}`}>
+        {/* Technology tags */}
+        <div className="svc-card-tags" aria-label={`Technologies for ${s.title}`}>
           {s.tags.map((t) => (
-            <span key={t}>{t}</span>
+            <span key={t} className="svc-card-tag">{t}</span>
           ))}
         </div>
 
-        {/* Aligned Card Action */}
+        {/* Card CTA */}
         <div className="svc-card-action">
           {isServicesPage ? (
-            <Link className="svc-btn" href={`/contact?service=${encodeURIComponent(s.title)}`}>
-              <span>Scope {s.title}</span>
+            <Link className="svc-card-btn" href={`/contact?service=${encodeURIComponent(s.title)}`}>
+              <span>Scope this practice</span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M7 17L17 7M17 7H7M17 7V17" />
               </svg>
             </Link>
           ) : (
-            <Link className="svc-btn" href={`/services#${s.code}`}>
-              <span>Explore {s.title}</span>
+            <Link className="svc-card-btn" href={`/services#${s.code}`}>
+              <span>Learn more</span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
@@ -85,9 +82,9 @@ export default function ServiceGrid({ featuredOnly = false, items, isServicesPag
 
   return (
     <div className="svc-section-container">
-      {/* Desktop Grid Layout */}
+      {/* Desktop Grid */}
       <div
-        className={`svc-grid svc-grid-desktop${featuredOnly ? ' svc-grid-featured' : ''}`}
+        className={`svc-cards-grid${featuredOnly ? ' svc-cards-grid-featured' : ''}`}
         role="list"
         aria-label="Core capabilities grid"
       >
@@ -106,7 +103,6 @@ export default function ServiceGrid({ featuredOnly = false, items, isServicesPag
           {displayServices.map((s, idx) => renderCard(s, idx))}
         </div>
 
-        {/* Carousel Pagination Indicator */}
         {displayServices.length > 1 && (
           <div className="carousel-pagination svc-pagination" role="tablist" aria-label="Services carousel navigation">
             {displayServices.map((s, idx) => (
@@ -126,4 +122,3 @@ export default function ServiceGrid({ featuredOnly = false, items, isServicesPag
     </div>
   );
 }
-

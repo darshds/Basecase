@@ -1,6 +1,7 @@
 import { Archivo, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
+import LeadModal from '@/components/LeadModal';
 import { CONTACT } from '@/lib/data';
 import './globals.css';
 
@@ -52,16 +53,9 @@ export const metadata = {
     description: 'Every loop needs a base case. We build the parts of your business that run on code.',
     creator: '@basecase',
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
   },
 };
 
@@ -137,6 +131,7 @@ export default function RootLayout({ children }) {
         <Nav />
         <main>{children}</main>
         <Footer />
+        <LeadModal />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </body>
     </html>

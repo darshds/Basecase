@@ -114,7 +114,7 @@ export default function HomePage() {
       <ClientMarquee />
 
       {/* ── Practice Directory Index ───────────────────────────────── */}
-      <div className="wrap directory-strip-wrap">
+      {/* <div className="wrap directory-strip-wrap">
         <div className="index-container">
           <div className="index-label-bar">
             <span>// 00. PRACTICE DIRECTORY <span className="index-label-desc">, JUMP DIRECTLY TO A SPECIALTY</span></span>
@@ -134,7 +134,7 @@ export default function HomePage() {
             ))}
           </nav>
         </div>
-      </div>
+      </div> */}
 
       {/* ── Section 01: Featured Client Work ──────────────────────── */}
       <section className="band" id="work" aria-labelledby="work-heading">

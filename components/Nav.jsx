@@ -3,12 +3,21 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
-const LINKS = [
+// Desktop nav — anchor links for smooth scroll
+const DESKTOP_LINKS = [
   { href: '/work', label: 'Client Work' },
   { href: '/#capabilities', label: 'Capabilities' },
   { href: '/services', label: 'Full Catalog' },
   { href: '/#process', label: 'Process' },
   { href: '/about', label: 'About' },
+];
+
+// Mobile drawer — direct pages only, no /#anchor jumps
+const MOBILE_LINKS = [
+  { href: '/work', label: 'Client Work' },
+  { href: '/services', label: 'Capabilities & Services' },
+  { href: '/about', label: 'Our Story & Process' },
+  { href: '/contact', label: 'Start a Project' },
 ];
 
 /* ── Theme Toggle ──────────────────────────────────────────────── */
@@ -94,8 +103,8 @@ export default function Nav() {
 
           {/* Desktop links */}
           <div className="nav-links" role="list">
-            {LINKS.map((l) => (
-              <Link key={l.href} href={l.href} role="listitem">{l.label}</Link>
+            {DESKTOP_LINKS.map((l) => (
+              <Link key={l.label} href={l.href} role="listitem">{l.label}</Link>
             ))}
           </div>
 
@@ -151,9 +160,8 @@ export default function Nav() {
         </div>
 
         <div className="nav-drawer-links">
-          {LINKS.map((l, idx) => (
-            <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="nav-drawer-link">
-              <span className="nav-drawer-num">0{idx + 1}</span>
+          {MOBILE_LINKS.map((l) => (
+            <Link key={l.label} href={l.href} onClick={() => setOpen(false)} className="nav-drawer-link">
               <span className="nav-drawer-label">{l.label}</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M5 12h14M12 5l7 7-7 7" />
