@@ -2,6 +2,9 @@ import Link from 'next/link';
 import ServiceGrid from '@/components/ServiceGrid';
 import ProjectsShowcase from '@/components/ProjectsShowcase';
 import ClientMarquee from '@/components/ClientMarquee';
+import AriaFace from '@/components/AriaFace';
+import { Scene3D, Tilt, Layer, Depth } from '@/components/Three';
+import RecursionSection from '@/components/RecursionSection';
 import { SERVICE_INDEX, STEPS, PROJECTS, STUDIO_STATS } from '@/lib/data';
 
 export const metadata = {
@@ -25,89 +28,100 @@ export default function HomePage() {
         {/* Subtle background grid */}
         <div className="hero-grid-bg" aria-hidden="true" />
 
-        {/* Status indicator */}
-        <div className="status reveal" style={{ animationDelay: '.04s' }}>
-          <span className="dot" aria-hidden="true" />
-          <span className="tag">
-            Taking on new projects · {liveCount} Live Client Builds · {soonCount} Staging Alpha
-          </span>
-        </div>
+        <div className="hero-layout">
+          <div className="hero-copy">
+            {/* Status indicator */}
+            <div className="status reveal" style={{ animationDelay: '.04s' }}>
+              <span className="dot" aria-hidden="true" />
+              <span className="tag">
+                Taking on new projects · {liveCount} Live Client Builds · {soonCount} Staging Alpha
+              </span>
+            </div>
 
-        {/* Hero headline */}
-        <h1 id="hero-heading" className="disp hero-h reveal" style={{ animationDelay: '.1s' }}>
-          We build the parts of your business that <em>run on code.</em>
-        </h1>
+            {/* Hero headline */}
+            <h1 id="hero-heading" className="disp hero-h reveal" style={{ animationDelay: '.1s' }}>
+              We build the parts of your business that <em>run on code.</em>
+            </h1>
 
-        {/* Subheading */}
-        <p className="hero-sub reveal" style={{ animationDelay: '.18s' }}>
-          Basecase is an independent IT consulting and build studio. High-performance websites, e-commerce, cloud, data, AI, and
-          the architecture underneath: engineered, shipped, and kept running by one elite team instead of five fragmented vendors.
-        </p>
+            {/* Subheading */}
+            <p className="hero-sub reveal" style={{ animationDelay: '.18s' }}>
+              Basecase is an independent IT consulting and build studio. High-performance websites, e-commerce, cloud, data, AI, and
+              the architecture underneath: engineered, shipped, and kept running by one elite team instead of five fragmented vendors.
+            </p>
 
-        {/* Tagline / Execution kicker */}
-        <div className="hero-tagline reveal" style={{ animationDelay: '.23s' }}>
-          <span className="hero-tagline-glyph">&gt;</span>
-          <span>Every loop needs a base case. // Zero bloat. Pure performance.</span>
-        </div>
+            {/* Tagline / Execution kicker */}
+            <div className="hero-tagline reveal" style={{ animationDelay: '.23s' }}>
+              <span className="hero-tagline-glyph">&gt;</span>
+              <span>Every loop needs a base case. // Zero bloat. Pure performance.</span>
+            </div>
 
-        {/* CTAs with unified alignment & heights */}
-        <div className="hero-cta reveal" style={{ animationDelay: '.28s' }}>
-          <Link className="btn btn-primary btn-hero" href="/contact">
-            <span>Tell us what you need</span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M7 17L17 7M17 7H7M17 7V17" />
-            </svg>
-          </Link>
-          <Link className="btn btn-ghost btn-hero" href="/work">
-            <span>Explore Client Work</span>
-            <span className="btn-badge">{PROJECTS.length} Builds</span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </Link>
-          <Link className="btn btn-ghost btn-hero" href="/services">
-            <span>Full Service Catalog</span>
-            <span className="btn-badge">35+ Practices</span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
-          </Link>
-        </div>
+            {/* CTAs with unified alignment & heights */}
+            <div className="hero-cta reveal" style={{ animationDelay: '.28s' }}>
+              <Link className="btn btn-primary btn-hero" href="/contact">
+                <span>Tell us what you need</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </Link>
+              <Link className="btn btn-ghost btn-hero" href="/work">
+                <span>Explore Client Work</span>
+                <span className="btn-badge">{PROJECTS.length} Builds</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </Link>
+              <Link className="btn btn-ghost btn-hero" href="/services">
+                <span>Full Service Catalog</span>
+                <span className="btn-badge">35+ Practices</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </Link>
+            </div>
 
-        {/* Hero trust micro-strip */}
-        <div className="hero-trust-bar reveal" style={{ animationDelay: '.32s' }} aria-label="Studio commitments">
-          <span className="hero-trust-item">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-            </svg>
-            Direct response in &lt;24h
-          </span>
-          <span className="hero-trust-sep">·</span>
-          <span className="hero-trust-item">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-            Senior engineers only, zero sales reps
-          </span>
-          <span className="hero-trust-sep">·</span>
-          <span className="hero-trust-item">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M12 6v6l4 2" />
-            </svg>
-            Melbourne &amp; Worldwide Remote
-          </span>
+            {/* Hero trust micro-strip */}
+            <div className="hero-trust-bar reveal" style={{ animationDelay: '.32s' }} aria-label="Studio commitments">
+              <span className="hero-trust-item">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                </svg>
+                Direct response in &lt;24h
+              </span>
+              <span className="hero-trust-sep">·</span>
+              <span className="hero-trust-item">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                Senior engineers only, zero sales reps
+              </span>
+              <span className="hero-trust-sep">·</span>
+              <span className="hero-trust-item">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 6v6l4 2" />
+                </svg>
+                Melbourne &amp; Worldwide Remote
+              </span>
+            </div>
+
+          </div>
+
+          <AriaFace />
         </div>
 
         {/* Studio stats */}
-        <div className="stats-strip reveal" style={{ animationDelay: '.36s' }} role="list" aria-label="Studio statistics">
-          {STUDIO_STATS.map((stat, idx) => (
-            <div className="stat-card" key={idx} role="listitem">
-              <div className="stat-val" aria-label={`${stat.value} , ${stat.label}`}>{stat.value}</div>
-              <div className="stat-lbl">{stat.label}</div>
-            </div>
-          ))}
-        </div>
+        <Scene3D className="stats-scene">
+          <div className="stats-strip reveal" style={{ animationDelay: '.36s' }} role="list" aria-label="Studio statistics">
+            {STUDIO_STATS.map((stat, idx) => (
+              <Tilt className="stat-card is-3d" key={idx} role="listitem" max={8} lift={18}>
+                <Layer z={26}>
+                  <div className="stat-val" aria-label={`${stat.value} , ${stat.label}`}>{stat.value}</div>
+                  <div className="stat-lbl">{stat.label}</div>
+                </Layer>
+              </Tilt>
+            ))}
+          </div>
+        </Scene3D>
       </section>
 
       {/* ── Client Ticker ─────────────────────────────────────────── */}
@@ -213,21 +227,27 @@ export default function HomePage() {
             Predictable engineering milestones from first call to final code deployment. No hidden handoffs, no endless meetings.
           </p>
 
-          <div className="steps" role="list" aria-label="Engagement process steps">
-            {STEPS.map((s, idx) => {
-              const milestones = ['Day 1', 'Day 2–3', 'Weekly Sprints', 'Launch & Care'];
-              return (
-                <div className="step" key={s.n} role="listitem">
-                  <div className="step-header">
-                    <div className="step-n" aria-hidden="true">0{s.n}</div>
-                    <span className="step-timing-badge">{milestones[idx]}</span>
-                  </div>
-                  <h3>{s.title}</h3>
-                  <p>{s.body}</p>
-                </div>
-              );
-            })}
-          </div>
+          <Scene3D className="steps-scene">
+            <Depth rotate={7} speed={0.94}>
+            <div className="steps" role="list" aria-label="Engagement process steps">
+              {STEPS.map((s, idx) => {
+                const milestones = ['Day 1', 'Day 2–3', 'Weekly Sprints', 'Launch & Care'];
+                return (
+                  <Tilt className="step is-3d" key={s.n} role="listitem" max={9} lift={20}>
+                    <Layer z={24}>
+                      <div className="step-header">
+                        <div className="step-n" aria-hidden="true">0{s.n}</div>
+                        <span className="step-timing-badge">{milestones[idx]}</span>
+                      </div>
+                      <h3>{s.title}</h3>
+                      <p>{s.body}</p>
+                    </Layer>
+                  </Tilt>
+                );
+              })}
+            </div>
+            </Depth>
+          </Scene3D>
 
           {/* Process guarantee bar */}
           <div className="process-guarantee-bar">
@@ -256,41 +276,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Section 04: Brand Story ───────────────────────────────── */}
-      <section className="band" aria-labelledby="story-heading">
-        <div className="wrap split">
-          <div>
-            <span className="tag">Section 04 // Why Basecase</span>
-            <h2 id="story-heading" className="disp split-h">Every loop needs a base case</h2>
-          </div>
-          <div>
-            <p className="lede lede-ink">
-              It&apos;s a familiar shape. In programming, a function that calls itself with no exit
-              condition runs until it crashes. The thing that stops it is the base case: the condition
-              you define yourself so the whole structure can finally resolve.
-            </p>
-            <p className="band-note" style={{ marginBottom: 0 }}>
-              Most businesses that call us are stuck in a loop of their own: a site that needs
-              rebuilding every eighteen months, a database nobody wants to touch, a cloud bill nobody
-              can explain. We find the condition that breaks it.
-            </p>
-            <div className="tail">
-              <Link className="btn" href="/contact">
-                <span>Tell us what&apos;s looping</span>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M7 17L17 7M17 7H7M17 7V17" />
-                </svg>
-              </Link>
-              <Link className="btn btn-ghost" href="/about">
-                <span>Read the whole story</span>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ── Section 04: Recursion descent (scroll set-piece) ──── */}
+      <RecursionSection />
 
       {/* ── Section 05: CTA ───────────────────────────────────────── */}
       <section className="band" aria-labelledby="cta-heading">

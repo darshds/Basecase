@@ -3,6 +3,10 @@
 import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { SERVICES } from '@/lib/data';
+import { SERVICE_PAGES } from '@/lib/service-pages';
+
+/** Each core practice now has its own keyword-targeted page. */
+const SLUG_BY_CODE = Object.fromEntries(SERVICE_PAGES.map((s) => [s.code, s.slug]));
 
 /**
  * ServiceGrid — core practices, clean card design.
@@ -60,21 +64,14 @@ export default function ServiceGrid({ featuredOnly = false, items, isServicesPag
 
         {/* Card CTA */}
         <div className="svc-card-action">
-          {isServicesPage ? (
-            <Link className="svc-card-btn" href={`/contact?service=${encodeURIComponent(s.title)}`}>
-              <span>Scope this practice</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M7 17L17 7M17 7H7M17 7V17" />
-              </svg>
-            </Link>
-          ) : (
-            <Link className="svc-card-btn" href={`/services#${s.code}`}>
-              <span>Learn more</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
-          )}
+          {/* Links to the practice's own page rather than an anchor, so the hub
+              passes internal link equity to the page carrying that keyword. */}
+          <Link className="svc-card-btn" href={`/services/${SLUG_BY_CODE[s.code]}`}>
+            <span>{isServicesPage ? 'Explore this practice' : 'Learn more'}</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </Link>
         </div>
       </article>
     );
