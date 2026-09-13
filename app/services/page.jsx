@@ -3,12 +3,12 @@ import ServiceGrid from '@/components/ServiceGrid';
 import Catalog from '@/components/Catalog';
 
 export const metadata = {
-  title: 'Services & Practice Catalog · Basecase Tech',
+  title: 'Services · Basecase Tech',
   description:
-    'Six core practices plus 35+ specialized engineering disciplines: web development, cloud architecture, chatbots & AI, system design, databases, DevOps, and fractional CTO consulting.',
+    'Websites, getting found on Google, AI assistants, hosting that survives a rush, and 35+ other things we build. Fixed prices, no lock-in.',
   openGraph: {
-    title: 'Services & Practice Catalog · Basecase Tech',
-    description: 'Six core practices plus 35+ specialized capabilities. Fixed-price sprints or dedicated engineering retainers.',
+    title: 'Services · Basecase Tech',
+    description: 'Six things we do most, plus 35+ others. Fixed prices, no lock-in.',
   },
 };
 
@@ -20,51 +20,51 @@ export default function ServicesPage() {
         <div className="status reveal" style={{ animationDelay: '.04s' }}>
           <span className="dot" aria-hidden="true" />
           <span className="tag">
-            6 Core Practices · 35+ Catalog Disciplines · Fixed Sprints &amp; Retainers
+            6 main services · 35+ specialties · Fixed prices
           </span>
         </div>
 
         <h1 id="services-heading" className="disp page-h reveal" style={{ animationDelay: '.1s' }}>
-          Services &amp; <em>Capabilities.</em>
+          What we <em>build.</em>
         </h1>
 
         <p className="lede reveal" style={{ animationDelay: '.18s' }}>
-          Everything we build. No fluff, no lock-in, no bloat. Just results.
+          Six things we do most, plus everything else. Try each one below.
         </p>
 
         {/* Studio Guarantees Bar */}
         <div className="stats-strip reveal" style={{ animationDelay: '.26s' }} role="list" aria-label="Studio engineering guarantees">
           <div className="stat-card" role="listitem">
             <div className="stat-val">&lt;24h</div>
-            <div className="stat-lbl">Direct Engineer Reply</div>
+            <div className="stat-lbl">We reply within a day</div>
           </div>
           <div className="stat-card" role="listitem">
             <div className="stat-val">100%</div>
-            <div className="stat-lbl">Full Code Ownership</div>
+            <div className="stat-lbl">You own everything we build</div>
           </div>
           <div className="stat-card" role="listitem">
             <div className="stat-val">Fixed</div>
-            <div className="stat-lbl">Milestone Price Guarantees</div>
+            <div className="stat-lbl">Price agreed before we start</div>
           </div>
           <div className="stat-card" role="listitem">
             <div className="stat-val">Zero</div>
-            <div className="stat-lbl">Vendor Lock-In</div>
+            <div className="stat-lbl">You can leave any time</div>
           </div>
         </div>
 
         {/* Services Jump Navigation */}
         <nav className="services-jump-nav reveal" style={{ animationDelay: '.32s' }} aria-label="Quick jump to service sections">
           <a className="services-jump-link" href="#capabilities">
-            <span>↓ 01. Core Capabilities (6)</span>
+            <span>↓ What we do</span>
           </a>
           <a className="services-jump-link" href="#catalog-section">
-            <span>↓ 02. Practice Catalog &amp; Search (35+)</span>
+            <span>↓ Full list</span>
           </a>
           <a className="services-jump-link" href="#engagement-models">
-            <span>↓ 03. Engagement Models</span>
+            <span>↓ How we charge</span>
           </a>
           <a className="services-jump-link" href="#intake">
-            <span>↓ 04. Project Intake</span>
+            <span>↓ Get a quote</span>
           </a>
         </nav>
       </section>
@@ -73,11 +73,11 @@ export default function ServicesPage() {
       <section className="band" id="capabilities" aria-labelledby="core-capabilities-heading">
         <div className="wrap">
           <div className="band-head">
-            <span className="tag">Core Capabilities</span>
-            <h2 id="core-capabilities-heading" className="disp">Six Core Practices</h2>
+            <span className="tag">What we do</span>
+            <h2 id="core-capabilities-heading" className="disp">Six things we do most</h2>
           </div>
           <p className="band-note">
-            Most projects combine several. Pick what you need.
+            Find the one that sounds like you — then have a play with it.
           </p>
 
           <ServiceGrid isServicesPage={true} />
@@ -85,21 +85,20 @@ export default function ServicesPage() {
           {/* Capabilities Consolidation Bar */}
           <div className="capabilities-footer-bar">
             <div className="capabilities-footer-note">
-              <strong>Need a multi-discipline build or combined architecture?</strong>
+              <strong>Need more than one of these?</strong>
               <span>
-                Most clients commission consolidated sprints , combining Web Development, Cloud Deployment,
-                and Technical SEO under a single fixed-price engagement.
+                Most clients pick two or three — a new site, hosting, and getting found on Google — and we quote the lot as one price.
               </span>
             </div>
             <div className="capabilities-footer-actions">
               <Link className="btn btn-primary" href="/contact">
-                <span>Scope a Consolidated Sprint</span>
+                <span>Get one quote for the lot</span>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M7 17L17 7M17 7H7M17 7V17" />
                 </svg>
               </Link>
               <a className="btn btn-ghost" href="#catalog-section">
-                <span>Explore 35+ Other Practices</span>
+                <span>See everything else</span>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M19 9l-7 7-7-7" />
                 </svg>
@@ -113,24 +112,24 @@ export default function ServicesPage() {
       <section className="band" id="catalog-section" aria-labelledby="full-catalog-heading">
         <div className="wrap">
           <div className="band-head">
-            <span className="tag">Full Catalog</span>
-            <h2 id="full-catalog-heading" className="disp">35+ Capabilities</h2>
+            <span className="tag">Everything else</span>
+            <h2 id="full-catalog-heading" className="disp">35+ other things</h2>
           </div>
           <p className="band-note">
-            Search or filter. Everything is delivered on our timeline, with our SLAs.
+            Everything else we do. Search it or browse by area.
           </p>
 
           <Catalog />
 
           <div className="showcase-footer-link" style={{ marginTop: 40 }}>
             <Link className="btn btn-primary" href="/contact">
-              <span>Commission Custom Engineering</span>
+              <span>Ask about something else</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M7 17L17 7M17 7H7M17 7V17" />
               </svg>
             </Link>
             <Link className="btn btn-ghost" href="/work">
-              <span>View Shipped Client Builds</span>
+              <span>See our work</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
@@ -143,20 +142,20 @@ export default function ServicesPage() {
       <section className="band" id="engagement-models" aria-labelledby="models-heading">
         <div className="wrap">
           <div className="band-head">
-            <span className="tag">How We Work</span>
-            <h2 id="models-heading" className="disp">Three Ways to Engage</h2>
+            <span className="tag">How we charge</span>
+            <h2 id="models-heading" className="disp">Three ways to work with us</h2>
           </div>
           <p className="band-note">
-            Fixed prices. No hourly. No surprises.
+            Pick whichever suits. No hourly billing, no surprises.
           </p>
 
           <div className="engagement-grid" role="list" aria-label="Commercial engagement models">
             {/* Model 1 */}
             <article className="engagement-card" role="listitem">
-              <span className="engagement-badge">PROJECT SPRINTS</span>
+              <span className="engagement-badge">ONE-OFF PROJECT</span>
               <h3 className="engagement-h">Fixed Price</h3>
               <p className="engagement-p">
-                Websites, apps, migrations. One price. Clear deadline.
+                A website, an app, a move to new hosting. One price, one deadline.
               </p>
               <ul className="engagement-features" aria-label="Fixed-Price Sprint features">
                 <li className="engagement-feature-item">
@@ -169,25 +168,25 @@ export default function ServicesPage() {
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Weekly demos, direct access</span>
+                  <span>See it every week as we build</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Full code ownership, no lock-in</span>
+                  <span>You own it all at the end</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>30-day warranty included</span>
+                  <span>30 days of free fixes after launch</span>
                 </li>
               </ul>
               <div className="engagement-footer">
-                <span className="engagement-dur">Typical Timeline: 2 to 8 Weeks</span>
+                <span className="engagement-dur">Usually 2–8 weeks</span>
                 <Link className="btn" href="/contact?model=sprint">
-                  <span>Scope a Sprint</span>
+                  <span>Get a price</span>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M7 17L17 7M17 7H7M17 7V17" />
                   </svg>
@@ -197,41 +196,41 @@ export default function ServicesPage() {
 
             {/* Model 2 */}
             <article className="engagement-card" role="listitem">
-              <span className="engagement-badge">CONTINUOUS BUILD</span>
+              <span className="engagement-badge">ONGOING</span>
               <h3 className="engagement-h">Monthly Retainer</h3>
               <p className="engagement-p">
-                Ongoing features, DevOps, support. Dedicated capacity every month.
+                We keep building and looking after it, month after month.
               </p>
               <ul className="engagement-features" aria-label="Dedicated Retainer features">
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Guaranteed monthly capacity</span>
+                  <span>Set hours reserved for you</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Priority SLA support</span>
+                  <span>Urgent jobs jump the queue</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Direct Slack channel with leads</span>
+                  <span>Message us directly, any day</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Proactive monitoring &amp; patching</span>
+                  <span>We watch it so you don&apos;t have to</span>
                 </li>
               </ul>
               <div className="engagement-footer">
-                <span className="engagement-dur">Model: Monthly Recurring · Cancel Anytime</span>
+                <span className="engagement-dur">Monthly · cancel any time</span>
                 <Link className="btn" href="/contact?model=retainer">
-                  <span>Inquire About Retainers</span>
+                  <span>Ask about monthly</span>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M7 17L17 7M17 7H7M17 7V17" />
                   </svg>
@@ -241,41 +240,41 @@ export default function ServicesPage() {
 
             {/* Model 3 */}
             <article className="engagement-card" role="listitem">
-              <span className="engagement-badge">ADVISORY</span>
+              <span className="engagement-badge">ADVICE ONLY</span>
               <h3 className="engagement-h">Expert Review</h3>
               <p className="engagement-p">
-                Audits, due diligence, strategy. 1–3 weeks.
+                You're not sure what to do next, and want someone to check.
               </p>
               <ul className="engagement-features" aria-label="Technical Advisory features">
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Full audit &amp; security review</span>
+                  <span>We check the whole thing over</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>System design &amp; blueprints</span>
+                  <span>A written plan you can act on</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Vendor evaluation, due diligence</span>
+                  <span>We check suppliers before you sign</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Actionable roadmap</span>
+                  <span>Steps your own team can follow</span>
                 </li>
               </ul>
               <div className="engagement-footer">
-                <span className="engagement-dur">Typical Timeline: 1 to 3 Weeks</span>
+                <span className="engagement-dur">Usually 1–3 weeks</span>
                 <Link className="btn" href="/contact?model=advisory">
-                  <span>Book Advisory Session</span>
+                  <span>Book a review</span>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M7 17L17 7M17 7H7M17 7V17" />
                   </svg>
@@ -297,9 +296,9 @@ export default function ServicesPage() {
                 Tell us what you need. Reply within 24 hours, engineer-to-engineer.
               </p>
               <div className="cta-reassurances">
-                <span className="cta-reassurance-item">✓ Strict NDA Protection</span>
-                <span className="cta-reassurance-item">✓ Senior Engineers Only</span>
-                <span className="cta-reassurance-item">✓ Fixed-Price Milestones</span>
+                <span className="cta-reassurance-item">✓ We sign an NDA</span>
+                <span className="cta-reassurance-item">✓ You talk to the engineer</span>
+                <span className="cta-reassurance-item">✓ Fixed price, agreed upfront</span>
               </div>
             </div>
             <div className="cta-actions">
@@ -310,7 +309,7 @@ export default function ServicesPage() {
                 </svg>
               </Link>
               <Link className="btn btn-ghost cta-secondary-btn" href="/work">
-                <span>Explore Client Work (8 Builds)</span>
+                <span>See our work</span>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>

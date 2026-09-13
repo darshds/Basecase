@@ -3,9 +3,10 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { CATALOG } from '@/lib/data';
+import { useSnapCarousel, CarouselDots } from './SnapCarousel';
 
 const FILTERS = [
-  { key: 'all', label: 'All Practices' },
+  { key: 'all', label: 'Everything' },
   ...CATALOG.map((g) => ({ key: g.key, label: g.label, count: g.items.length })),
 ];
 
@@ -20,7 +21,10 @@ export default function Catalog() {
 
   // Filter groups and items based on category and search query
   const filteredGroups = useMemo(() => {
-    const q = search.trim().toLowerCase();
+    const q = search.trim();
+    const escaped = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = q ? new RegExp('(^|[^\\p{L}\\p{N}])' + escaped, 'iu') : null;
+    const hit = (text) => re.test(text);
 
     return CATALOG.map((g) => {
       // Category filter check
@@ -34,18 +38,14 @@ export default function Catalog() {
       }
 
       // Check if group label or desc matches
-      const groupMatches =
-        g.label.toLowerCase().includes(q) ||
-        (g.desc && g.desc.toLowerCase().includes(q));
+      const groupMatches = hit(g.label) || (g.desc && hit(g.desc));
 
       if (groupMatches) {
         return g;
       }
 
       // Otherwise filter items
-      const matchingItems = g.items.filter((item) =>
-        item.toLowerCase().includes(q)
-      );
+      const matchingItems = g.items.filter(hit);
 
       if (matchingItems.length > 0) {
         return {
@@ -62,6 +62,8 @@ export default function Catalog() {
     () => filteredGroups.reduce((acc, g) => acc + g.items.length, 0),
     [filteredGroups]
   );
+
+  const { ref: rowRef, active: slide, onScroll, goTo } = useSnapCarousel(filteredGroups.length);
 
   return (
     <div className="catalog-explorer" id="catalog-explorer">
@@ -87,7 +89,7 @@ export default function Catalog() {
           <input
             type="search"
             className="catalog-search-input"
-            placeholder="Search 35+ capabilities (e.g. Next.js, Cloud, Mobile, RAG, ISO, DevOps)..."
+            placeholder="Search — try “app”, “hosting”, “reports”…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             aria-label="Search practices catalog"
@@ -127,7 +129,7 @@ export default function Catalog() {
       {/* Results Status Bar */}
       <div className="catalog-status-bar">
         <span className="catalog-status-text">
-          Showing <strong>{totalVisibleItems}</strong> of {totalPractices} capabilities
+          Showing <strong>{totalVisibleItems}</strong> of {totalPractices}
           {search && ` matching "${search}"`}
         </span>
         {search && (
@@ -139,7 +141,7 @@ export default function Catalog() {
               setActive('all');
             }}
           >
-            Reset All Filters
+            Clear
           </button>
         )}
       </div>
@@ -147,10 +149,9 @@ export default function Catalog() {
       {/* ── Groups & Items Grid ────────────────────────────────── */}
       {filteredGroups.length === 0 ? (
         <div className="showcase-empty catalog-empty-state" role="status">
-          <div className="catalog-empty-icon" aria-hidden="true">🔍</div>
-          <h3>No capabilities found matching &ldquo;{search}&rdquo;</h3>
+          <h3>Nothing called &ldquo;{search}&rdquo; &mdash; but we probably still do it.</h3>
           <p>
-            Looking for something tailored? We architect custom solutions outside standard catalog definitions.
+            Tell us what you&apos;re after in plain words and we&apos;ll say yes or no within a day.
           </p>
           <div className="catalog-empty-actions">
             <button
@@ -161,15 +162,21 @@ export default function Catalog() {
                 setActive('all');
               }}
             >
-              Reset Search &amp; Show All
+              Show everything
             </button>
             <Link className="btn" href="/contact">
-              Ask Our Engineers Directly
+              Just ask us
             </Link>
           </div>
         </div>
       ) : (
-        <div className="catalog-groups-grid" role="list" aria-label="Service catalog categories">
+        <div
+          className="catalog-groups-grid"
+          role="list"
+          aria-label="Service catalog categories"
+          ref={rowRef}
+          onScroll={onScroll}
+        >
           {filteredGroups.map((g) => (
             <article
               className="catalog-group-card"
@@ -219,6 +226,16 @@ export default function Catalog() {
             </article>
           ))}
         </div>
+      )}
+
+      {filteredGroups.length > 0 && (
+        <CarouselDots
+          className="catalog-pagination"
+          count={filteredGroups.length}
+          active={slide}
+          goTo={goTo}
+          labels={filteredGroups.map((g) => g.label)}
+        />
       )}
     </div>
   );

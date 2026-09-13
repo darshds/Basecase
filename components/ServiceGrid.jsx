@@ -1,130 +1,74 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { SERVICES } from '@/lib/data';
+import ServiceDemo from './ServiceDemo';
+import { useSnapCarousel, CarouselDots } from './SnapCarousel';
 
 /**
- * ServiceGrid — modern masonry layout with varied card sizes.
- * Desktop: asymmetric grid. Mobile: horizontal swipe carousel.
+ * ServiceGrid — each practice card carries a live, playable demo.
+ * Grid on desktop and tablet; a swipe carousel on phones.
  */
 export default function ServiceGrid({ featuredOnly = false, items, isServicesPage = false }) {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const carouselRef = useRef(null);
-
   const displayServices = items || (featuredOnly ? SERVICES.filter((s) => s.featured) : SERVICES);
-
-  const handleScroll = useCallback(() => {
-    const el = carouselRef.current;
-    if (!el) return;
-    const cardWidth = el.firstChild ? el.firstChild.offsetWidth + 14 : 1;
-    const idx = Math.round(el.scrollLeft / cardWidth);
-    setActiveSlide(Math.min(idx, displayServices.length - 1));
-  }, [displayServices.length]);
-
-  function scrollToSlide(idx) {
-    const el = carouselRef.current;
-    if (!el) return;
-    const cardWidth = el.firstChild ? el.firstChild.offsetWidth + 14 : 0;
-    el.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
-    setActiveSlide(idx);
-  }
-
-  function renderCard(s, idx) {
-    const isLarge = s.layout === 'large';
-    return (
-      <article
-        className={`svc-card ${isLarge ? 'svc-card-large' : 'svc-card-small'}`}
-        key={s.code}
-        id={s.code}
-        role="listitem"
-      >
-        {/* Image/Gradient Background */}
-        {s.image && (
-          <div className="svc-card-image" style={{ background: s.image }} aria-hidden="true" />
-        )}
-
-        <div className="svc-card-inner">
-          {/* Service name */}
-          <h3 className="svc-card-title">{s.title}</h3>
-
-          {/* Short description */}
-          {s.shortDesc && (
-            <p className="svc-card-short-desc">{s.shortDesc}</p>
-          )}
-
-          {/* Technology tags */}
-          <div className="svc-card-tags" aria-label={`Technologies for ${s.title}`}>
-            {s.tags.map((t) => (
-              <span key={t} className="svc-card-tag">{t}</span>
-            ))}
-          </div>
-
-          {/* Duration */}
-          <div className="svc-card-footer">
-            <span className="svc-card-dur">{s.dur}</span>
-
-            {/* Card CTA */}
-            {isServicesPage ? (
-              <Link className="svc-card-btn" href={`/contact?service=${encodeURIComponent(s.title)}`}>
-                <span>Scope</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M7 17L17 7M17 7H7M17 7V17" />
-                </svg>
-              </Link>
-            ) : (
-              <Link className="svc-card-btn" href={`/services#${s.code}`}>
-                <span>Learn more</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </Link>
-            )}
-          </div>
-        </div>
-      </article>
-    );
-  }
+  const { ref, active, onScroll, goTo } = useSnapCarousel(displayServices.length);
 
   return (
     <div className="svc-section-container">
-      {/* Desktop Grid */}
       <div
         className={`svc-cards-grid${featuredOnly ? ' svc-cards-grid-featured' : ''}`}
         role="list"
-        aria-label="Core capabilities grid"
+        aria-label="Core capabilities"
+        ref={ref}
+        onScroll={onScroll}
       >
-        {displayServices.map((s, idx) => renderCard(s, idx))}
+        {displayServices.map((s) => (
+          <article className="svc-card" key={s.code} id={s.code} role="listitem">
+            <div className="svc-card-demo">
+              <span className="svc-card-try">Try it</span>
+              <ServiceDemo code={s.code} />
+            </div>
+
+            <div className="svc-card-inner">
+              <span className="svc-card-label">{s.title}</span>
+              <h3 className="svc-card-problem">{s.problem}</h3>
+
+              <div className="svc-card-tags" aria-label={`Stack for ${s.title}`}>
+                {s.tags.map((t) => (
+                  <span key={t} className="svc-card-tag">{t}</span>
+                ))}
+              </div>
+
+              <div className="svc-card-footer">
+                <span className="svc-card-dur">{s.dur}</span>
+                {isServicesPage ? (
+                  <Link className="svc-card-btn" href={`/contact?service=${encodeURIComponent(s.title)}`}>
+                    <span>Get a price</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M7 17L17 7M17 7H7M17 7V17" />
+                    </svg>
+                  </Link>
+                ) : (
+                  <Link className="svc-card-btn" href={`/services#${s.code}`}>
+                    <span>Learn more</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
       </div>
 
-      {/* Mobile Swipe Carousel */}
-      <div className="svc-carousel-wrap" aria-label="Services carousel">
-        <div
-          className="svc-carousel"
-          ref={carouselRef}
-          onScroll={handleScroll}
-          aria-label={`${displayServices.length} practices, swipe to browse`}
-          tabIndex={0}
-        >
-          {displayServices.map((s, idx) => renderCard(s, idx))}
-        </div>
-
-        {displayServices.length > 1 && (
-          <div className="carousel-pagination svc-pagination" role="tablist" aria-label="Services carousel navigation">
-            {displayServices.map((s, idx) => (
-              <button
-                key={s.code}
-                type="button"
-                role="tab"
-                aria-selected={activeSlide === idx}
-                aria-label={`Go to service ${idx + 1}: ${s.title}`}
-                className={`carousel-dot${activeSlide === idx ? ' is-active' : ''}`}
-                onClick={() => scrollToSlide(idx)}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+      <CarouselDots
+        className="svc-pagination"
+        count={displayServices.length}
+        active={active}
+        goTo={goTo}
+        labels={displayServices.map((s) => s.title)}
+      />
     </div>
   );
 }
