@@ -2141,6 +2141,12 @@ textarea {
   .svc-cards-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+.catalog-groups-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 24px;
+}
+
 /* Phones: one swipe row instead of a tall stack. */
 .svc-pagination,
 .catalog-pagination {
@@ -3244,13 +3250,6 @@ textarea {
   text-decoration: underline;
   cursor: pointer;
   padding: 0;
-}
-
-/* Groups Grid */
-.catalog-groups-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 24px;
 }
 
 .catalog-group-card {
