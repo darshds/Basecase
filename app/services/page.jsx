@@ -25,13 +25,11 @@ export default function ServicesPage() {
         </div>
 
         <h1 id="services-heading" className="disp page-h reveal" style={{ animationDelay: '.1s' }}>
-          Full Service Catalog &amp; <em>Engineering Practices.</em>
+          Services &amp; <em>Capabilities.</em>
         </h1>
 
         <p className="lede reveal" style={{ animationDelay: '.18s' }}>
-          Everything your business needs built on code: from high-converting Next.js web applications
-          and custom AI assistants to cloud migrations and scalable system architectures. Engineered
-          and shipped by one elite team with zero vendor bloat.
+          Everything we build. No fluff, no lock-in, no bloat. Just results.
         </p>
 
         {/* Studio Guarantees Bar */}
@@ -75,12 +73,11 @@ export default function ServicesPage() {
       <section className="band" id="capabilities" aria-labelledby="core-capabilities-heading">
         <div className="wrap">
           <div className="band-head">
-            <span className="tag">Section 01 // Core Capabilities</span>
-            <h2 id="core-capabilities-heading" className="disp">Six Flagship Practices We Ship Daily</h2>
+            <span className="tag">Core Capabilities</span>
+            <h2 id="core-capabilities-heading" className="disp">Six Core Practices</h2>
           </div>
           <p className="band-note">
-            Covering the majority of client commissions. Each discipline can be scoped as an independent
-            sprint or integrated into a comprehensive end-to-end digital product build.
+            Most projects combine several. Pick what you need.
           </p>
 
           <ServiceGrid isServicesPage={true} />
@@ -116,12 +113,11 @@ export default function ServicesPage() {
       <section className="band" id="catalog-section" aria-labelledby="full-catalog-heading">
         <div className="wrap">
           <div className="band-head">
-            <span className="tag">Section 02 // Full Engineering Taxonomy</span>
-            <h2 id="full-catalog-heading" className="disp">Interactive Practice Catalog &amp; Specialties</h2>
+            <span className="tag">Full Catalog</span>
+            <h2 id="full-catalog-heading" className="disp">35+ Capabilities</h2>
           </div>
           <p className="band-note">
-            Search or filter across 35+ specialized capabilities spanning Build, Run &amp; Support, Data &amp; AI,
-            Security, Growth, and Advisory. Every practice is deliverable under our standard engineering SLAs.
+            Search or filter. Everything is delivered on our timeline, with our SLAs.
           </p>
 
           <Catalog />
@@ -147,47 +143,45 @@ export default function ServicesPage() {
       <section className="band" id="engagement-models" aria-labelledby="models-heading">
         <div className="wrap">
           <div className="band-head">
-            <span className="tag">Section 03 // Commercial Models</span>
-            <h2 id="models-heading" className="disp">Transparent Engagement Structures</h2>
+            <span className="tag">How We Work</span>
+            <h2 id="models-heading" className="disp">Three Ways to Engage</h2>
           </div>
           <p className="band-note">
-            No ambiguous billable hours or vendor sprawl. Three predictable commercial structures designed
-            for agility, accountability, and pristine code quality.
+            Fixed prices. No hourly. No surprises.
           </p>
 
           <div className="engagement-grid" role="list" aria-label="Commercial engagement models">
             {/* Model 1 */}
             <article className="engagement-card" role="listitem">
-              <span className="engagement-badge">MODEL-01 // PROJECT SPRINTS</span>
-              <h3 className="engagement-h">Fixed-Price Sprints</h3>
+              <span className="engagement-badge">PROJECT SPRINTS</span>
+              <h3 className="engagement-h">Fixed Price</h3>
               <p className="engagement-p">
-                Ideal for new marketing websites, web applications, e-commerce stores, cloud migrations,
-                and standalone feature launches.
+                Websites, apps, migrations. One price. Clear deadline.
               </p>
               <ul className="engagement-features" aria-label="Fixed-Price Sprint features">
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Guaranteed fixed price with explicit deliverables &amp; milestones</span>
+                  <span>Fixed price, clear milestones</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Weekly staging previews &amp; direct engineering demos</span>
+                  <span>Weekly demos, direct access</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Complete source code handover with zero vendor lock-in</span>
+                  <span>Full code ownership, no lock-in</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>30-day post-launch warranty &amp; regression bug fixes</span>
+                  <span>30-day warranty included</span>
                 </li>
               </ul>
               <div className="engagement-footer">
@@ -203,36 +197,35 @@ export default function ServicesPage() {
 
             {/* Model 2 */}
             <article className="engagement-card" role="listitem">
-              <span className="engagement-badge">MODEL-02 // CONTINUOUS BUILD</span>
-              <h3 className="engagement-h">Dedicated Retainer</h3>
+              <span className="engagement-badge">CONTINUOUS BUILD</span>
+              <h3 className="engagement-h">Monthly Retainer</h3>
               <p className="engagement-p">
-                Ideal for scaling companies requiring continuous feature velocity, ongoing DevOps infrastructure,
-                performance optimization, and 24/7 reliability.
+                Ongoing features, DevOps, support. Dedicated capacity every month.
               </p>
               <ul className="engagement-features" aria-label="Dedicated Retainer features">
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Guaranteed monthly senior engineering capacity &amp; sprints</span>
+                  <span>Guaranteed monthly capacity</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Priority SLA turnaround times for urgent production tickets</span>
+                  <span>Priority SLA support</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Direct Slack / Teams communication channel with tech leads</span>
+                  <span>Direct Slack channel with leads</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Proactive security patching, backups &amp; uptime monitoring</span>
+                  <span>Proactive monitoring &amp; patching</span>
                 </li>
               </ul>
               <div className="engagement-footer">
@@ -248,36 +241,35 @@ export default function ServicesPage() {
 
             {/* Model 3 */}
             <article className="engagement-card" role="listitem">
-              <span className="engagement-badge">MODEL-03 // CONSULTATIVE</span>
-              <h3 className="engagement-h">Technical Advisory</h3>
+              <span className="engagement-badge">ADVISORY</span>
+              <h3 className="engagement-h">Expert Review</h3>
               <p className="engagement-p">
-                Ideal for businesses untangling legacy code, evaluating vendors, preparing for technical due
-                diligence, or needing fractional CTO oversight.
+                Audits, due diligence, strategy. 1–3 weeks.
               </p>
               <ul className="engagement-features" aria-label="Technical Advisory features">
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Comprehensive codebase audit, security review &amp; cloud cost analysis</span>
+                  <span>Full audit &amp; security review</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>System design blueprints &amp; written technical decision records</span>
+                  <span>System design &amp; blueprints</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Vendor selection &amp; external technical due diligence reports</span>
+                  <span>Vendor evaluation, due diligence</span>
                 </li>
                 <li className="engagement-feature-item">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Actionable execution roadmap your internal developers can run</span>
+                  <span>Actionable roadmap</span>
                 </li>
               </ul>
               <div className="engagement-footer">
@@ -299,10 +291,10 @@ export default function ServicesPage() {
         <div className="wrap">
           <div className="cta">
             <div className="cta-left">
-              <span className="tag tag-invert">Section 04 // Project Intake</span>
-              <h2 id="services-cta-heading" className="disp cta-h">Ready to get started?</h2>
+              <span className="tag tag-invert">Let's Talk</span>
+              <h2 id="services-cta-heading" className="disp cta-h">Ready to build?</h2>
               <p className="cta-p">
-                Tell us what you&apos;re building or fixing. Rough answers are fine. Direct technical reply from our senior engineering team within one business day.
+                Tell us what you need. Reply within 24 hours, engineer-to-engineer.
               </p>
               <div className="cta-reassurances">
                 <span className="cta-reassurance-item">✓ Strict NDA Protection</span>
