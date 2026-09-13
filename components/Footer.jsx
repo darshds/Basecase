@@ -23,7 +23,7 @@ export default function Footer() {
           <div className="footer-brand">
             <Link className="mark" href="/">
               <span className="mark-sq" aria-hidden="true">(<i />)</span>
-              <span className="mark-txt">Basecase</span>
+              <span className="mark-txt">Basecase Tech</span>
             </Link>
             <p className="footer-tagline">
               IT consulting &amp; build studio. Websites, cloud, data, AI, and the architecture underneath.

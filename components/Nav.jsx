@@ -20,7 +20,7 @@ export default function Nav() {
       <div className="wrap nav-in">
         <Link className="mark" href="/" onClick={() => setOpen(false)}>
           <span className="mark-sq" aria-hidden="true">(<i />)</span>
-          <span className="mark-txt">Basecase</span>
+          <span className="mark-txt">Basecase Tech</span>
         </Link>
 
         <div className="nav-links">

@@ -498,6 +498,16 @@ input, select, textarea {
   background: rgba(255, 255, 255, 0.2);
 }
 
+a.index-i {
+  color: inherit;
+  transition: background 0.16s ease;
+}
+
+a.index-i:hover {
+  background: #ffffff;
+  color: inherit;
+}
+
 .index-i b {
   display: block;
   font-family: var(--mono), monospace;
@@ -1932,6 +1942,459 @@ legend {
 }
 
 /* ==========================================================================
+   Scroll story (homepage opener)
+   .story is tall; .story-stage sticks under the nav while ScrollStory.jsx
+   maps scroll progress to frames, beat copy and the hero resolve.
+   ========================================================================== */
+
+:root {
+  --nav-h: 64px;
+  --story-len: 8;
+}
+
+.story {
+  position: relative;
+  height: calc(var(--story-len) * 100vh);
+  height: calc(var(--story-len) * 100lvh);
+}
+
+.story-stage {
+  position: sticky;
+  top: var(--nav-h);
+  height: calc(100vh - var(--nav-h));
+  height: calc(100dvh - var(--nav-h));
+  overflow: hidden;
+}
+
+.story-media {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+}
+
+.story-poster,
+.story-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.story-poster {
+  object-fit: cover;
+  object-position: center;
+}
+
+.story-canvas {
+  will-change: opacity;
+}
+
+/* Landing question: shown before any scroll, so it starts visible */
+.story-beat-landing {
+  opacity: 1;
+  visibility: visible;
+}
+
+.story-beat-landing .story-lead {
+  max-width: 17ch;
+}
+
+.story-hint-s {
+  margin: 18px 0 0;
+  font-family: var(--mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--panel-soft);
+}
+
+.story-hint-s span {
+  color: var(--panel-accent);
+  margin-right: 6px;
+}
+
+.story-turn-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--gut);
+  pointer-events: none;
+}
+
+.story-turn {
+  font-size: clamp(28px, 4.6vw, 64px);
+  max-width: 14ch;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity, transform;
+}
+
+/* Beat copy: every beat sits in the same grid cell, JS fades the live one. */
+.story-beats {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-items: center;
+  padding: 0 var(--gut);
+  pointer-events: none;
+}
+
+/* Solid panel: the problem beat is ink (noise), service beats are signal (clarity).
+   Amber carries the accent on both so the eye has one thing to catch. */
+.story-beat {
+  grid-area: 1 / 1;
+  --panel: var(--signal);
+  --panel-ink: #ffffff;
+  --panel-soft: rgba(255, 255, 255, 0.82);
+  --panel-rule: rgba(255, 255, 255, 0.38);
+  --panel-accent: var(--amber);
+  max-width: 500px;
+  padding: 28px 30px 30px;
+  background: var(--panel);
+  color: var(--panel-ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity, transform;
+}
+
+.story-beat[data-tone="ink"] {
+  --panel: var(--ink);
+  --panel-accent: var(--oxide);
+  box-shadow: 8px 8px 0 var(--signal);
+}
+
+.story-beat[data-tone="paper"] {
+  --panel: var(--paper-card);
+  --panel-ink: var(--ink);
+  --panel-soft: var(--ink-soft);
+  --panel-rule: var(--rule);
+  --panel-accent: var(--signal);
+  box-shadow: 8px 8px 0 var(--signal);
+}
+
+.story-code {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--panel-accent);
+  margin-bottom: 18px;
+}
+
+.story-code::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--panel-accent);
+}
+
+.story-title {
+  font-size: clamp(36px, 4.2vw, 64px);
+  margin-bottom: 16px;
+}
+
+.story-lead {
+  font-size: clamp(28px, 3vw, 44px);
+  line-height: 0.98;
+  max-width: 15ch;
+  margin-bottom: 16px;
+}
+
+.story-body {
+  margin: 0;
+  color: var(--panel-soft);
+  font-size: clamp(16px, 1.35vw, 19px);
+  line-height: 1.55;
+  max-width: 40ch;
+  text-wrap: pretty;
+}
+
+.story-loop {
+  display: flex;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--panel-rule);
+  font-family: var(--mono), monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: var(--panel-ink);
+}
+
+.story-loop span {
+  color: var(--panel-accent);
+}
+
+.story-chips {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.story-chips li {
+  font-family: var(--mono), monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 9px;
+  border: 1px solid var(--panel-rule);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--panel-ink);
+}
+
+/* Section counter + progress rail */
+.story-rail {
+  position: absolute;
+  left: var(--gut);
+  bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.story-rail-n {
+  font-family: var(--mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--ink-soft);
+}
+
+.story-rail-n b {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.story-rail-track {
+  display: flex;
+  gap: 6px;
+}
+
+.story-rail-track i {
+  display: block;
+  position: relative;
+  width: 36px;
+  height: 2px;
+  background: var(--rule);
+  overflow: hidden;
+}
+
+.story-rail-track i b {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* The hero, revealed as the last beat */
+.story-hero {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.story-hero-in {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.story-hero [data-land] {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.story-hero .status {
+  margin-bottom: 22px;
+}
+
+.hero-after {
+  padding-top: 0;
+}
+
+.stat-val {
+  font-variant-numeric: tabular-nums;
+}
+
+@media(max-height: 860px) {
+  .story-hero .hero-h {
+    font-size: clamp(30px, 6.2vw, 78px);
+  }
+  .story-hero .hero-sub {
+    margin: 18px 0 12px;
+  }
+  .story-hero .hero-tagline {
+    margin-bottom: 22px;
+  }
+  .story-title {
+    font-size: clamp(32px, 3.6vw, 52px);
+  }
+  .story-lead {
+    font-size: clamp(26px, 2.6vw, 38px);
+  }
+}
+
+/* Portrait / phone: frames take the top of the stage, copy sits on paper below */
+@media(max-width: 760px), ((orientation: portrait) and (max-width: 1024px)) {
+  :root {
+    --story-len: 6.5;
+  }
+  .story-media {
+    inset: 0 0 auto 0;
+    height: 54%;
+  }
+  .story-media::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 18%;
+    background: linear-gradient(to bottom, rgba(236, 238, 236, 0), var(--paper));
+    pointer-events: none;
+  }
+  .story-hint-s {
+    margin-top: 12px;
+  }
+  .story-turn {
+    font-size: clamp(24px, 7vw, 38px);
+  }
+  .story-rail {
+    left: var(--gut);
+    right: var(--gut);
+    top: 54%;
+    bottom: auto;
+    gap: 12px;
+  }
+  .story-rail-track {
+    flex: 1;
+  }
+  .story-rail-track i {
+    flex: 1;
+    width: auto;
+  }
+  .story-beats {
+    top: 54%;
+    align-items: start;
+    padding-top: 26px;
+  }
+  .story-beat {
+    max-width: none;
+    padding: 18px 20px 20px;
+    box-shadow: 6px 6px 0 var(--ink);
+    margin-right: 6px;
+  }
+  .story-beat[data-tone="ink"] {
+    box-shadow: 6px 6px 0 var(--signal);
+  }
+  .story-code {
+    margin-bottom: 10px;
+  }
+  .story-title {
+    font-size: clamp(26px, 7.5vw, 34px);
+    margin-bottom: 10px;
+  }
+  .story-lead {
+    font-size: clamp(22px, 6.4vw, 30px);
+    max-width: none;
+    margin-bottom: 10px;
+  }
+  .story-body {
+    font-size: 15px;
+    max-width: none;
+  }
+  .story-loop {
+    margin-top: 12px;
+    padding-top: 10px;
+    font-size: 11px;
+  }
+  .story-chips {
+    margin-top: 10px;
+    gap: 6px;
+  }
+  .story-chips li {
+    padding: 5px 8px;
+  }
+  .story-hero .hero-h {
+    font-size: clamp(28px, 9vw, 42px);
+  }
+  .story-hero .status {
+    margin-bottom: 14px;
+  }
+  .story-hero .hero-sub {
+    font-size: 15px;
+    margin: 14px 0 10px;
+  }
+  .story-hero .hero-tagline {
+    margin-bottom: 16px;
+  }
+  .story-hero .hero-cta {
+    gap: 10px;
+  }
+  .story-hero .btn {
+    padding: 11px 16px;
+  }
+}
+
+/* Short phones: give the copy panel more of the stage */
+@media(max-width: 760px) and (max-height: 760px) {
+  .story-media {
+    height: 47%;
+  }
+  .story-rail,
+  .story-beats {
+    top: 47%;
+  }
+  .story-beat {
+    padding: 14px 16px 16px;
+  }
+  .story-code {
+    margin-bottom: 8px;
+  }
+  .story-title {
+    font-size: clamp(22px, 6.6vw, 28px);
+    margin-bottom: 8px;
+  }
+  .story-lead {
+    font-size: clamp(20px, 5.8vw, 26px);
+    margin-bottom: 8px;
+  }
+  .story-body {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .story-loop {
+    margin-top: 10px;
+    padding-top: 8px;
+    font-size: 10.5px;
+  }
+  .story-chips {
+    margin-top: 8px;
+    gap: 5px;
+  }
+  .story-chips li {
+    font-size: 10px;
+    padding: 4px 7px;
+  }
+}
+
+/* ==========================================================================
    Reduced Motion
    ========================================================================== */
 
@@ -1948,5 +2411,25 @@ legend {
   }
   .marquee-content {
     animation: none;
+  }
+  .story {
+    height: auto;
+  }
+  .story-stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+  .story-media, .story-beats, .story-rail {
+    display: none;
+  }
+  .story-hero {
+    position: relative;
+    padding: clamp(44px, 6vw, 84px) 0 clamp(36px, 4.5vw, 56px);
+    pointer-events: auto;
+  }
+  .story-hero [data-land] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

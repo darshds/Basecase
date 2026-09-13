@@ -1,8 +1,9 @@
 import Link from 'next/link';
-import ServiceGrid from '@/components/ServiceGrid';
 import ProjectsShowcase from '@/components/ProjectsShowcase';
 import ClientMarquee from '@/components/ClientMarquee';
-import { SERVICE_INDEX, CATALOG, STEPS, PROJECTS, STUDIO_STATS } from '@/lib/data';
+import ScrollStory from '@/components/ScrollStory';
+import StudioStats from '@/components/StudioStats';
+import { SERVICE_INDEX, CATALOG, STEPS, PROJECTS } from '@/lib/data';
 
 export default function HomePage() {
   const liveCount = PROJECTS.filter((p) => p.status === 'live').length;
@@ -10,57 +11,46 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="wrap hero">
-        <div className="status reveal" style={{ animationDelay: '.05s' }}>
+      {/* Scroll story: frames on top, the hero is its final beat */}
+      <ScrollStory>
+        <div className="status" data-land="0">
           <span className="dot" />
           <span className="tag">
             Taking on new projects · {liveCount} Live Client Builds &amp; {soonCount} Staging Alpha
           </span>
         </div>
 
-        <h1 className="disp hero-h reveal" style={{ animationDelay: '.12s' }}>
+        <h1 className="disp hero-h" data-land="3">
           We build the parts of your business that <em>run on code.</em>
         </h1>
 
-        <p className="hero-sub reveal" style={{ animationDelay: '.22s' }}>
+        <p className="hero-sub" data-land="1">
           Basecase is an IT consulting and build studio. High-performance websites, e-commerce, cloud, data, AI, and the
-          architecture underneath: engineered, shipped, and kept running by one elite team instead of five vendors.
+          architecture underneath: engineered, shipped, and kept running by one team.
         </p>
 
-        <p className="tag hero-tagline reveal" style={{ animationDelay: '.26s' }}>
-          Every loop needs a base case.
-        </p>
-
-        <div className="hero-cta reveal" style={{ animationDelay: '.3s' }}>
+        <div className="hero-cta" data-land="2">
           <Link className="btn" href="/contact">
             Tell us what you need
           </Link>
           <Link className="btn btn-ghost" href="/work">
             Explore Client Work ({PROJECTS.length})
           </Link>
-          <Link className="btn btn-ghost" href="/services">
-            Full Service Catalog
-          </Link>
         </div>
+      </ScrollStory>
 
-        {/* Quick Studio Stats Banner */}
-        <div className="stats-strip reveal" style={{ animationDelay: '.36s' }}>
-          {STUDIO_STATS.map((stat, idx) => (
-            <div className="stat-card" key={idx}>
-              <div className="stat-val">{stat.value}</div>
-              <div className="stat-lbl">{stat.label}</div>
-            </div>
-          ))}
-        </div>
+      {/* Stats + the six-practice index land right under the resolved hero.
+          The story above already walks through four of them, so this is the
+          only other place the practices are listed on the homepage. */}
+      <section className="wrap hero hero-after" id="capabilities">
+        <StudioStats />
 
-        {/* Index of Service Codes */}
-        <div className="index reveal" style={{ animationDelay: '.42s' }}>
+        <div className="index">
           {SERVICE_INDEX.map((i) => (
-            <div className="index-i" key={i.code}>
+            <Link className="index-i" href="/services" key={i.code}>
               <b>{i.code}</b>
               <span>{i.label}</span>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -89,26 +79,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section 02: Core Capabilities */}
-      <section className="band" id="capabilities">
-        <div className="wrap">
-          <div className="band-head">
-            <span className="tag">Section 02 / Core capabilities</span>
-            <h2 className="disp">What we&apos;re hired for most</h2>
-          </div>
-          <p className="band-note">
-            Six practices that cover the work most businesses come to us with. Each one can be a
-            standalone project or part of a larger build.
-          </p>
-          <ServiceGrid />
-        </div>
-      </section>
-
-      {/* Section 03: Full Catalog */}
+      {/* Section 02: Full Catalog */}
       <section className="band">
         <div className="wrap">
           <div className="band-head">
-            <span className="tag">Section 03 / Full catalog</span>
+            <span className="tag">Section 02 / Full catalog</span>
             <h2 className="disp">Everything else we can take on</h2>
           </div>
           <p className="band-note">
@@ -127,11 +102,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section 04: Process */}
+      {/* Section 03: Process */}
       <section className="band" id="process">
         <div className="wrap">
           <div className="band-head">
-            <span className="tag">Section 04 / How an engagement runs</span>
+            <span className="tag">Section 03 / How an engagement runs</span>
             <h2 className="disp">Four steps, no surprises</h2>
           </div>
           <div className="steps">
@@ -146,11 +121,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section 05: Why Basecase */}
+      {/* Section 04: Why Basecase */}
       <section className="band">
         <div className="wrap split">
           <div>
-            <span className="tag">Section 05 / Why Basecase</span>
+            <span className="tag">Section 04 / Why Basecase</span>
             <h2 className="disp split-h">Every loop needs a base case</h2>
           </div>
           <div>
@@ -166,18 +141,17 @@ export default function HomePage() {
             </p>
             <div className="tail">
               <Link className="btn btn-ghost" href="/about">Read the whole story</Link>
-              <Link className="btn" href="/contact">Tell us what's looping</Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section 06: CTA */}
+      {/* Section 05: CTA */}
       <section className="band">
         <div className="wrap">
           <div className="cta">
             <div>
-              <span className="tag tag-invert">Section 06 / Project intake</span>
+              <span className="tag tag-invert">Section 05 / Project intake</span>
               <h2 className="disp cta-h">Tell us what&apos;s looping</h2>
               <p className="cta-p">
                 Fill in what you know. Rough answers are fine. We reply within one business day.
