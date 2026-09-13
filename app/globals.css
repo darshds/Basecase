@@ -396,6 +396,7 @@ textarea {
   text-transform: uppercase;
   font-size: 17px;
   color: var(--ink);
+  white-space: nowrap;
 }
 
 /* Nav links */
@@ -548,13 +549,18 @@ textarea {
   display: flex;
   flex-direction: column;
   transform: translateX(100%);
-  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Hidden while closed so the off-screen panel can't widen the layout
+     viewport on phones; the delay lets the slide-out finish first. */
+  visibility: hidden;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.32s;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
 .nav-drawer.is-open {
   transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s;
 }
 
 .nav-drawer-header {
@@ -678,6 +684,49 @@ textarea {
 
   .nav-burger {
     display: flex;
+  }
+}
+
+/* Phones: nothing may widen the layout viewport or the page renders zoomed
+   out. body's overflow propagates to the viewport (the viewport stays the
+   scroll container, so position: sticky keeps working) and long nowrap
+   buttons are allowed to wrap. */
+@media (max-width: 960px) {
+  body {
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 480px) {
+  .showcase-featured-jump-btn,
+  .showcase-footer-link .btn,
+  .capabilities-footer-actions .btn {
+    white-space: normal;
+    height: auto;
+    min-height: 40px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    line-height: 1.35;
+    text-align: left;
+    max-width: 100%;
+  }
+}
+
+/* Narrow phones: wordmark + theme toggle + menu must fit in one row, or the
+   nav overflows and stretches the layout viewport (page renders zoomed out). */
+@media (max-width: 420px) {
+  .nav-in {
+    gap: 12px;
+  }
+  .mark {
+    gap: 8px;
+    min-width: 0;
+  }
+  .mark-txt {
+    font-size: 15px;
+  }
+  .nav-burger {
+    padding: 8px 10px;
   }
 }
 
@@ -4398,6 +4447,7 @@ legend {
   font-size: clamp(28px, 4.6vw, 64px);
   max-width: 14ch;
   text-align: center;
+  color: #0D1311;
   opacity: 0;
   visibility: hidden;
   will-change: opacity, transform;
@@ -4417,25 +4467,25 @@ legend {
    Amber carries the accent on both so the eye has one thing to catch. */
 .story-beat {
   grid-area: 1 / 1;
-  --panel: var(--signal);
+  --panel: #2B3FE8;
   --panel-ink: #ffffff;
   --panel-soft: rgba(255, 255, 255, 0.82);
   --panel-rule: rgba(255, 255, 255, 0.38);
-  --panel-accent: var(--amber);
+  --panel-accent: #F59E0B;
   max-width: 500px;
   padding: 28px 30px 30px;
   background: var(--panel);
   color: var(--panel-ink);
-  box-shadow: 8px 8px 0 var(--ink);
+  box-shadow: 8px 8px 0 #0D1311;
   opacity: 0;
   visibility: hidden;
   will-change: opacity, transform;
 }
 
 .story-beat[data-tone="ink"] {
-  --panel: var(--ink);
-  --panel-accent: var(--oxide);
-  box-shadow: 8px 8px 0 var(--signal);
+  --panel: #0D1311;
+  --panel-accent: #DD5119;
+  box-shadow: 8px 8px 0 #2B3FE8;
 }
 
 .story-beat[data-tone="paper"] {
@@ -4538,12 +4588,12 @@ legend {
   font-family: var(--mono), monospace;
   font-size: 11px;
   letter-spacing: 0.14em;
-  color: var(--ink-soft);
+  color: #444E48;
 }
 
 .story-rail-n b {
   font-weight: 500;
-  color: var(--ink);
+  color: #0D1311;
 }
 
 .story-rail-track {
@@ -4556,14 +4606,14 @@ legend {
   position: relative;
   width: 36px;
   height: 2px;
-  background: var(--rule);
+  background: rgba(13, 19, 17, 0.22);
   overflow: hidden;
 }
 
 .story-rail-track i b {
   position: absolute;
   inset: 0;
-  background: var(--ink);
+  background: #0D1311;
   transform: scaleX(0);
   transform-origin: left;
 }
@@ -4619,14 +4669,15 @@ legend {
   }
 }
 
-/* Portrait / phone: frames take the top of the stage, copy sits on paper below */
+/* Portrait / phone: the frame takes the top of the stage, the copy panel is
+   anchored to the bottom and overlaps the photo edge, the rail sits on top. */
 @media(max-width: 760px), ((orientation: portrait) and (max-width: 1024px)) {
   :root {
-    --story-len: 6.5;
+    --story-len: 6;
   }
   .story-media {
     inset: 0 0 auto 0;
-    height: 54%;
+    height: 64%;
   }
   .story-media::after {
     content: '';
@@ -4634,12 +4685,13 @@ legend {
     left: 0;
     right: 0;
     bottom: 0;
-    height: 18%;
+    height: 22%;
     background: linear-gradient(to bottom, rgba(236, 238, 236, 0), var(--paper));
     pointer-events: none;
   }
-  .story-hint-s {
-    margin-top: 12px;
+  .story-turn-wrap {
+    align-items: flex-start;
+    padding-top: 22%;
   }
   .story-turn {
     font-size: clamp(24px, 7vw, 38px);
@@ -4647,7 +4699,7 @@ legend {
   .story-rail {
     left: var(--gut);
     right: var(--gut);
-    top: 54%;
+    top: 16px;
     bottom: auto;
     gap: 12px;
   }
@@ -4659,18 +4711,21 @@ legend {
     width: auto;
   }
   .story-beats {
-    top: 54%;
-    align-items: start;
-    padding-top: 26px;
+    inset: auto 0 0 0;
+    align-items: end;
+    padding: 0 var(--gut) 20px;
   }
   .story-beat {
     max-width: none;
     padding: 18px 20px 20px;
-    box-shadow: 6px 6px 0 var(--ink);
+    box-shadow: 6px 6px 0 #0D1311;
     margin-right: 6px;
   }
   .story-beat[data-tone="ink"] {
-    box-shadow: 6px 6px 0 var(--signal);
+    box-shadow: 6px 6px 0 #2B3FE8;
+  }
+  .story-hint-s {
+    margin-top: 12px;
   }
   .story-code {
     margin-bottom: 10px;
@@ -4710,9 +4765,6 @@ legend {
     font-size: 15px;
     margin: 14px 0 10px;
   }
-  .story-hero .hero-tagline {
-    margin-bottom: 16px;
-  }
   .story-hero .hero-cta {
     gap: 10px;
   }
@@ -4721,15 +4773,8 @@ legend {
   }
 }
 
-/* Short phones: give the copy panel more of the stage */
+/* Short phones: tighter panel so the tallest beat still clears the rail */
 @media(max-width: 760px) and (max-height: 760px) {
-  .story-media {
-    height: 47%;
-  }
-  .story-rail,
-  .story-beats {
-    top: 47%;
-  }
   .story-beat {
     padding: 14px 16px 16px;
   }
