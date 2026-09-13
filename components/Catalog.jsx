@@ -179,11 +179,14 @@ export default function Catalog() {
             >
               {/* Card Header */}
               <div className="catalog-card-header">
-                <h3 className="catalog-group-title">{g.label}</h3>
+                <div className="catalog-header-top">
+                  <h3 className="catalog-group-title">{g.label}</h3>
+                  <span className="catalog-group-count">{g.items.length}</span>
+                </div>
                 {g.desc && <p className="catalog-group-desc">{g.desc}</p>}
               </div>
 
-              {/* Items List */}
+              {/* Items List - condensed */}
               <div className="catalog-items-grid" aria-label={`Practices in ${g.label}`}>
                 {g.items.map((item) => (
                   <div className="catalog-item-pill" key={item}>
@@ -194,27 +197,25 @@ export default function Catalog() {
               </div>
 
               {/* Card Footer Action */}
-              <div className="catalog-card-footer">
-                <Link
-                  className="catalog-inquire-link"
-                  href={`/contact?interest=${g.key}`}
+              <Link
+                className="catalog-inquire-link"
+                href={`/contact?interest=${g.key}`}
+              >
+                <span>Explore</span>
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
                 >
-                  <span>Scope {g.label} Services</span>
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                  </svg>
-                </Link>
-              </div>
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </Link>
             </article>
           ))}
         </div>
