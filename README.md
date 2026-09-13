@@ -6,7 +6,7 @@ Next.js 14 (App Router) + Prisma. Implements the design prototype
 
 ## Run it
 
-Storage is **Neon Postgres** (free tier), so there is no local database file — dev and
+Storage is **Neon Postgres** (free tier), so there is no local database file , dev and
 prod both talk to Neon. Create a project at [neon.com](https://neon.com), then:
 
 ```bash
@@ -33,8 +33,8 @@ app/
   about/page.jsx          /about origin story + "what that buys you"
   contact/page.jsx        /contact intake form
   admin/briefs/page.jsx   /admin/briefs inbox (server-rendered from Prisma)
-  admin/briefs/clear/     DELETE clear-all — under /admin so basic auth covers it
-  api/briefs/route.js     POST only — the public intake endpoint, write-only
+  admin/briefs/clear/     DELETE clear-all , under /admin so basic auth covers it
+  api/briefs/route.js     POST only , the public intake endpoint, write-only
   sitemap.js robots.js    SEO endpoints
 components/
   Nav.jsx                 client: sticky nav + mobile drawer
@@ -71,7 +71,7 @@ Three deliberate departures, all noted inline in the code:
    `CONTACT` is still a `[bracketed]` placeholder, rather than publishing junk to
    Google's structured-data index. Fill all five fields in and the block appears.
 3. **The /about opening sentence was corrected on the facts.** The prototype reads "We are
-   engineers arrived with master's degrees, good overseas experience" — ungrammatical, and
+   engineers arrived with master's degrees, good overseas experience" , ungrammatical, and
    wrong: the master's degrees were earned at an Australian university, and the professional
    experience is what was gained overseas. Rewritten accordingly. The recursive "no local
    experience without a job requiring local experience" beat is kept, since the whole brand
@@ -112,13 +112,13 @@ for visitors.
 
 | Endpoint | Auth | Method |
 |---|---|---|
-| `/api/briefs` | none, by design | `POST` only — 405 for anything else |
+| `/api/briefs` | none, by design | `POST` only , 405 for anything else |
 | `/admin/briefs` | basic auth | inbox UI |
 | `/admin/briefs/clear` | basic auth | `DELETE` clear-all |
 
 An earlier version exposed `GET` and `DELETE` on `/api/briefs` with no auth at all,
 which let anyone dump every lead or wipe the table. If you add an endpoint that returns
-brief data, put it under `/admin/` — a sibling path is not covered, and browsers also
+brief data, put it under `/admin/` , a sibling path is not covered, and browsers also
 won't forward the cached basic-auth credentials to one.
 
 ## Deploying to Vercel
@@ -148,10 +148,10 @@ npx prisma db push
 | `RESEND_API_KEY` | from [resend.com](https://resend.com) → API Keys |
 | `BRIEF_TO` | `basecase02@gmail.com` |
 | `BRIEF_FROM` | leave unset until a domain is verified (see below) |
-| `ADMIN_USER` / `ADMIN_PASSWORD` | the `/admin/briefs` gate — **change these** |
+| `ADMIN_USER` / `ADMIN_PASSWORD` | the `/admin/briefs` gate , **change these** |
 | `NEXT_PUBLIC_SITE_URL` | the real https URL, e.g. `https://basecase.com.au` |
 
-`npm run build` already runs `prisma generate` first, which Vercel requires — its
+`npm run build` already runs `prisma generate` first, which Vercel requires , its
 dependency cache would otherwise serve a stale client after a schema change.
 
 ### Resend: the one gotcha
@@ -173,5 +173,5 @@ set `BRIEF_FROM` to something like `Basecase <briefs@yourdomain.com>`. If
 - **Nothing throttles or captchas the form beyond that**, so if spam appears, that is
   the first thing to add.
 - `middleware.js` is HTTP basic auth. It is fine for keeping the inbox private, but it
-  is not a real login — replace it before storing client data you would mind leaking.
+  is not a real login , replace it before storing client data you would mind leaking.
 - Fonts load through `next/font` (self-hosted at build time), so there is no render-blocking request and no layout shift.

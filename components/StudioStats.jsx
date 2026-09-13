@@ -46,13 +46,13 @@ export default function StudioStats() {
   }, []);
 
   return (
-    <div className="stats-strip" ref={ref}>
+    <div className="stats-strip" ref={ref} role="list" aria-label="Studio statistics">
       {STUDIO_STATS.map((stat, idx) => {
         const parts = split(stat.value);
         const shown = parts ? `${parts.pre}${Math.round(parts.n * t)}${parts.post}` : stat.value;
         return (
-          <div className="stat-card" key={idx}>
-            <div className="stat-val">{shown}</div>
+          <div className="stat-card" key={idx} role="listitem">
+            <div className="stat-val" aria-label={`${stat.value}, ${stat.label}`}>{shown}</div>
             <div className="stat-lbl">{stat.label}</div>
           </div>
         );

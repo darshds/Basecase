@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m 'Redesign catalog section with glassmorphism, modern cards, cleaner layout *)"
+    ]
+  }
+}

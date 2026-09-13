@@ -1,9 +1,20 @@
 import Link from 'next/link';
+import ServiceGrid from '@/components/ServiceGrid';
 import ProjectsShowcase from '@/components/ProjectsShowcase';
 import ClientMarquee from '@/components/ClientMarquee';
 import ScrollStory from '@/components/ScrollStory';
 import StudioStats from '@/components/StudioStats';
-import { SERVICE_INDEX, CATALOG, STEPS, PROJECTS } from '@/lib/data';
+import { STEPS, PROJECTS } from '@/lib/data';
+
+export const metadata = {
+  title: 'Basecase · IT Consulting & Build Studio',
+  description:
+    'We build the parts of your business that run on code. High-performance websites, e-commerce, cloud, AI, and the architecture underneath , engineered, shipped, and kept running by one elite team.',
+  openGraph: {
+    title: 'Basecase · IT Consulting & Build Studio',
+    description: 'Every loop needs a base case. We build the parts of your business that run on code.',
+  },
+};
 
 export default function HomePage() {
   const liveCount = PROJECTS.filter((p) => p.status === 'live').length;
@@ -11,122 +22,227 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Scroll story: frames on top, the hero is its final beat */}
+      {/* ── Scroll story: frames on top, the hero is its final beat ── */}
       <ScrollStory>
+        {/* Status indicator */}
         <div className="status" data-land="0">
-          <span className="dot" />
+          <span className="dot" aria-hidden="true" />
           <span className="tag">
-            Taking on new projects · {liveCount} Live Client Builds &amp; {soonCount} Staging Alpha
+            Taking on new projects · {liveCount} Live Client Builds · {soonCount} Staging Alpha
           </span>
         </div>
 
-        <h1 className="disp hero-h" data-land="3">
+        {/* Hero headline: lands last */}
+        <h1 id="hero-heading" className="disp hero-h" data-land="4">
           We build the parts of your business that <em>run on code.</em>
         </h1>
 
+        {/* Subheading */}
         <p className="hero-sub" data-land="1">
-          Basecase is an IT consulting and build studio. High-performance websites, e-commerce, cloud, data, AI, and the
-          architecture underneath: engineered, shipped, and kept running by one team.
+          Basecase is an independent IT consulting and build studio. High-performance websites, e-commerce, cloud, data, AI, and
+          the architecture underneath: engineered, shipped, and kept running by one elite team.
         </p>
 
+        {/* CTAs with unified alignment & heights */}
         <div className="hero-cta" data-land="2">
-          <Link className="btn" href="/contact">
-            Tell us what you need
+          <Link className="btn btn-primary btn-hero" href="/contact">
+            <span>Tell us what you need</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H7M17 7V17" />
+            </svg>
           </Link>
-          <Link className="btn btn-ghost" href="/work">
-            Explore Client Work ({PROJECTS.length})
+          <Link className="btn btn-ghost btn-hero" href="/work">
+            <span>Explore Client Work</span>
+            <span className="btn-badge">{PROJECTS.length} Builds</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
           </Link>
+        </div>
+
+        {/* Hero trust micro-strip */}
+        <div className="hero-trust-bar" data-land="3" aria-label="Studio commitments">
+          <span className="hero-trust-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            </svg>
+            Direct response in &lt;24h
+          </span>
+          <span className="hero-trust-sep">·</span>
+          <span className="hero-trust-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            Senior engineers only, zero sales reps
+          </span>
+          <span className="hero-trust-sep">·</span>
+          <span className="hero-trust-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 6v6l4 2" />
+            </svg>
+            Melbourne &amp; Worldwide Remote
+          </span>
         </div>
       </ScrollStory>
 
-      {/* Stats + the six-practice index land right under the resolved hero.
-          The story above already walks through four of them, so this is the
-          only other place the practices are listed on the homepage. */}
-      <section className="wrap hero hero-after" id="capabilities">
+      {/* Studio stats count up as they scroll in under the resolved hero */}
+      <section className="wrap hero hero-after" aria-label="Studio statistics">
         <StudioStats />
-
-        <div className="index">
-          {SERVICE_INDEX.map((i) => (
-            <Link className="index-i" href="/services" key={i.code}>
-              <b>{i.code}</b>
-              <span>{i.label}</span>
-            </Link>
-          ))}
-        </div>
       </section>
 
-      {/* Dynamic Client Ticker Marquee */}
+      {/* ── Client Ticker ─────────────────────────────────────────── */}
       <ClientMarquee />
 
-      {/* Section 01: Selected Client Websites & Productions */}
-      <section className="band" id="work">
+      {/* ── Practice Directory Index ───────────────────────────────── */}
+      {/* <div className="wrap directory-strip-wrap">
+        <div className="index-container">
+          <div className="index-label-bar">
+            <span>// 00. PRACTICE DIRECTORY <span className="index-label-desc">, JUMP DIRECTLY TO A SPECIALTY</span></span>
+            <span>6 CORE DISCIPLINES</span>
+          </div>
+          <nav className="index" aria-label="Core service practices">
+            {SERVICE_INDEX.map((i) => (
+              <Link className="index-i" key={i.code} href={`/services#${i.code}`}>
+                <div className="index-i-header">
+                  <b>{i.code}</b>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                  </svg>
+                </div>
+                <span>{i.label}</span>
+              </Link>
+            ))}
+          </nav>
+        </div>
+      </div> */}
+
+      {/* ── Section 01: Featured Client Work ──────────────────────── */}
+      <section className="band" id="work" aria-labelledby="work-heading">
         <div className="wrap">
           <div className="band-head">
-            <span className="tag">Section 01 / Selected Client Work</span>
-            <h2 className="disp">Client Websites &amp; Live Productions</h2>
+            <span className="tag">Section 01 // Featured Client Work</span>
+            <h2 id="work-heading" className="disp">Featured Client Builds &amp; Productions</h2>
           </div>
           <p className="band-note">
-            Real systems built for real businesses. From luxury ateliers and global experiential agencies to high-speed e-commerce stores and fitness tech platforms.
+            A curated selection of live systems built for real businesses. From luxury ateliers and global talent management to experiential event agencies and performance media firms.
           </p>
 
-          <ProjectsShowcase projects={PROJECTS} />
+          <ProjectsShowcase projects={PROJECTS} featuredOnly={true} limit={4} />
 
           <div className="showcase-footer-link">
-            <Link className="btn btn-ghost" href="/work">
-              View Detailed Case Studies &amp; Tech Stacks →
+            <Link className="btn btn-primary" href="/work">
+              <span>Explore All {PROJECTS.length} Client Builds &amp; Case Studies</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
+            <Link className="btn btn-ghost" href="/contact">
+              <span>Commission a Website</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M7 17L17 7M17 7H7M17 7V17" />
+              </svg>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Section 02: Full Catalog */}
-      <section className="band">
+      {/* ── Section 02: Featured Practices ─────────────────────────── */}
+      <section className="band" id="capabilities" aria-labelledby="capabilities-heading">
         <div className="wrap">
           <div className="band-head">
-            <span className="tag">Section 02 / Full catalog</span>
-            <h2 className="disp">Everything else we can take on</h2>
+            <span className="tag">Section 02 // Featured Practices</span>
+            <h2 id="capabilities-heading" className="disp">Featured Engineering Capabilities</h2>
           </div>
           <p className="band-note">
-            Six groups, scoped as fixed projects or monthly retainers. Open the catalog to filter by
-            what you&apos;re trying to do.
+            Four core disciplines we are commissioned for most frequently , high-performance web applications, AI assistants, cloud architecture, and system design. Scoped as fixed-price sprints or dedicated engineering retainers.
           </p>
-          <div className="group-grid">
-            {CATALOG.map((g) => (
-              <Link className="group" href="/services" key={g.key}>
-                <span className="group-n">{g.items.length} SERVICES</span>
-                <span className="group-t">{g.label}</span>
-                <span className="group-s">{g.items.slice(0, 2).join(' · ')}</span>
+          <ServiceGrid featuredOnly={true} />
+
+          {/* Capabilities footer conversion bar */}
+          <div className="capabilities-footer-bar">
+            <div className="capabilities-footer-note">
+              <strong>Looking for our full scope of engineering practices?</strong>
+              <span>Explore our interactive catalog covering 35+ practices across Web, Cloud, Databases, AI, Security, and Advisory.</span>
+            </div>
+            <div className="capabilities-footer-actions">
+              <Link className="btn btn-primary" href="/services">
+                <span>View Full 35+ Practice Catalog</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
               </Link>
-            ))}
+              <Link className="btn btn-ghost" href="/contact">
+                <span>Book Scoping Call</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Section 03: Process */}
-      <section className="band" id="process">
+      {/* ── Section 03: Process ───────────────────────────────────── */}
+      <section className="band" id="process" aria-labelledby="process-heading">
         <div className="wrap">
           <div className="band-head">
-            <span className="tag">Section 03 / How an engagement runs</span>
-            <h2 className="disp">Four steps, no surprises</h2>
+            <span className="tag">Section 03 // How an Engagement Runs</span>
+            <h2 id="process-heading" className="disp">Four steps, no surprises</h2>
           </div>
-          <div className="steps">
-            {STEPS.map((s) => (
-              <div className="step" key={s.n}>
-                <div className="step-n">{s.n}</div>
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
+          <p className="band-note">
+            Predictable engineering milestones from first call to final code deployment. No hidden handoffs, no endless meetings.
+          </p>
+
+          <div className="steps" role="list" aria-label="Engagement process steps">
+            {STEPS.map((s, idx) => {
+              const milestones = ['Day 1', 'Day 2–3', 'Weekly Sprints', 'Launch & Care'];
+              return (
+                <div className="step" key={s.n} role="listitem">
+                  <div className="step-header">
+                    <div className="step-n" aria-hidden="true">0{s.n}</div>
+                    <span className="step-timing-badge">{milestones[idx]}</span>
+                  </div>
+                  <h3>{s.title}</h3>
+                  <p>{s.body}</p>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Process guarantee bar */}
+          <div className="process-guarantee-bar">
+            <div className="guarantee-item">
+              <span className="guarantee-icon">⚡</span>
+              <div>
+                <strong>Rapid Onboarding</strong>
+                <span>First staging deployment preview within 7 days</span>
               </div>
-            ))}
+            </div>
+            <div className="guarantee-item">
+              <span className="guarantee-icon">🛡️</span>
+              <div>
+                <strong>Zero Vendor Lock-In</strong>
+                <span>Full code ownership, clean Git repos &amp; documentation</span>
+              </div>
+            </div>
+            <div className="guarantee-item">
+              <span className="guarantee-icon">🎯</span>
+              <div>
+                <strong>Fixed-Price Sprints</strong>
+                <span>Scoped deliverables with guaranteed milestones</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Section 04: Why Basecase */}
-      <section className="band">
+      {/* ── Section 04: Brand Story ───────────────────────────────── */}
+      <section className="band" aria-labelledby="story-heading">
         <div className="wrap split">
           <div>
-            <span className="tag">Section 04 / Why Basecase</span>
-            <h2 className="disp split-h">Every loop needs a base case</h2>
+            <span className="tag">Section 04 // Why Basecase</span>
+            <h2 id="story-heading" className="disp split-h">Every loop needs a base case</h2>
           </div>
           <div>
             <p className="lede lede-ink">
@@ -134,30 +250,59 @@ export default function HomePage() {
               condition runs until it crashes. The thing that stops it is the base case: the condition
               you define yourself so the whole structure can finally resolve.
             </p>
-            <p className="band-note">
+            <p className="band-note" style={{ marginBottom: 0 }}>
               Most businesses that call us are stuck in a loop of their own: a site that needs
               rebuilding every eighteen months, a database nobody wants to touch, a cloud bill nobody
               can explain. We find the condition that breaks it.
             </p>
             <div className="tail">
-              <Link className="btn btn-ghost" href="/about">Read the whole story</Link>
+              <Link className="btn" href="/contact">
+                <span>Tell us what&apos;s looping</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </Link>
+              <Link className="btn btn-ghost" href="/about">
+                <span>Read the whole story</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section 05: CTA */}
-      <section className="band">
+      {/* ── Section 05: CTA ───────────────────────────────────────── */}
+      <section className="band" aria-labelledby="cta-heading">
         <div className="wrap">
           <div className="cta">
-            <div>
-              <span className="tag tag-invert">Section 05 / Project intake</span>
-              <h2 className="disp cta-h">Tell us what&apos;s looping</h2>
+            <div className="cta-left">
+              <span className="tag tag-invert">Section 05 // Project Intake</span>
+              <h2 id="cta-heading" className="disp cta-h">Tell us what&apos;s looping</h2>
               <p className="cta-p">
-                Fill in what you know. Rough answers are fine. We reply within one business day.
+                Fill in what you know. Rough answers are fine. Direct reply from our senior engineering team within one business day.
               </p>
+              <div className="cta-reassurances">
+                <span className="cta-reassurance-item">✓ Strict NDA on Request</span>
+                <span className="cta-reassurance-item">✓ Direct Engineer Contact</span>
+                <span className="cta-reassurance-item">✓ Fixed-Price Proposals</span>
+              </div>
             </div>
-            <Link className="btn btn-invert" href="/contact">Start a project</Link>
+            <div className="cta-actions">
+              <Link className="btn btn-invert" href="/contact">
+                <span>Start a Project</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </Link>
+              <Link className="btn btn-ghost cta-secondary-btn" href="/work">
+                <span>Review Past Builds ({liveCount})</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

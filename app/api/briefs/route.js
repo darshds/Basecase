@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic';
  *
  * This route is deliberately the only unauthenticated endpoint in the app, because the
  * contact form has to reach it from any visitor's browser. It therefore exposes POST and
- * nothing else — anything that reads or destroys briefs lives under /admin, where
+ * nothing else , anything that reads or destroys briefs lives under /admin, where
  * middleware.js gates it.
  *
  * Do not add a GET or DELETE handler here. An earlier version had both, unauthenticated,
