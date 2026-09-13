@@ -33,11 +33,8 @@ export default function ServiceGrid({ featuredOnly = false, items, isServicesPag
   function renderCard(s, idx) {
     return (
       <article className="svc-card" key={s.code} id={s.code} role="listitem">
-        {/* Top meta row: code pill + duration */}
-        <div className="svc-card-meta">
-          <span className="svc-card-code">{s.code}</span>
-          <span className="svc-card-dur">{s.dur}</span>
-        </div>
+        {/* Icon */}
+        {s.icon && <div className="svc-card-icon">{s.icon}</div>}
 
         {/* Service name */}
         <h3 className="svc-card-title">{s.title}</h3>
@@ -45,10 +42,9 @@ export default function ServiceGrid({ featuredOnly = false, items, isServicesPag
         {/* Description */}
         <p className="svc-card-desc">{s.desc}</p>
 
-        {/* Loop breaker insight */}
-        <div className="svc-card-insight">
-          <span className="svc-card-insight-icon" aria-hidden="true">↻</span>
-          <span>{s.loop.replace('Breaks the loop: ', '')}</span>
+        {/* Duration */}
+        <div className="svc-card-meta">
+          <span className="svc-card-dur">{s.dur}</span>
         </div>
 
         {/* Technology tags */}

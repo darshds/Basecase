@@ -2152,11 +2152,11 @@ textarea {
   background: var(--paper-raised);
   border: 1px solid var(--rule);
   border-top: 3px solid var(--signal);
-  padding: 24px 24px 20px;
+  padding: 28px 24px 20px;
   display: flex;
   flex-direction: column;
   gap: 0;
-  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
   overflow: hidden;
 }
 
@@ -2173,10 +2173,18 @@ textarea {
 .svc-card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
+  border-top-color: var(--signal-light);
 }
 
 .svc-card:hover::before {
   opacity: 1;
+}
+
+.svc-card-icon {
+  font-size: 48px;
+  line-height: 1;
+  margin-bottom: 16px;
+  display: block;
 }
 
 .svc-card-meta {
@@ -2184,6 +2192,9 @@ textarea {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 14px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
 }
 
 .svc-card-code {
@@ -2686,11 +2697,21 @@ textarea {
   margin-bottom: 20px;
 }
 
+.catalog-group-icon {
+  font-size: 44px;
+  line-height: 1;
+  margin-bottom: 16px;
+  display: block;
+}
+
 .catalog-card-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
 }
 
 .catalog-group-code {
