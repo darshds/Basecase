@@ -179,12 +179,8 @@ export default function Catalog() {
             >
               {/* Card Header */}
               <div className="catalog-card-header">
-                {g.icon && <div className="catalog-group-icon">{g.icon}</div>}
                 <h3 className="catalog-group-title">{g.label}</h3>
                 {g.desc && <p className="catalog-group-desc">{g.desc}</p>}
-                <div className="catalog-card-meta">
-                  <span className="catalog-group-count">{g.items.length} Practices</span>
-                </div>
               </div>
 
               {/* Items List */}

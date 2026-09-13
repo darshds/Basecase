@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { SERVICES } from '@/lib/data';
 
 /**
- * ServiceGrid — core practices, clean card design.
- * Desktop: grid layout. Mobile: horizontal swipe carousel.
+ * ServiceGrid — modern masonry layout with varied card sizes.
+ * Desktop: asymmetric grid. Mobile: horizontal swipe carousel.
  */
 export default function ServiceGrid({ featuredOnly = false, items, isServicesPage = false }) {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -31,46 +31,49 @@ export default function ServiceGrid({ featuredOnly = false, items, isServicesPag
   }
 
   function renderCard(s, idx) {
+    const isLarge = s.layout === 'large';
     return (
-      <article className="svc-card" key={s.code} id={s.code} role="listitem">
-        {/* Icon */}
-        {s.icon && <div className="svc-card-icon">{s.icon}</div>}
+      <article
+        className={`svc-card ${isLarge ? 'svc-card-large' : 'svc-card-small'}`}
+        key={s.code}
+        id={s.code}
+        role="listitem"
+      >
+        <div className="svc-card-inner">
+          {/* Service name */}
+          <h3 className="svc-card-title">{s.title}</h3>
 
-        {/* Service name */}
-        <h3 className="svc-card-title">{s.title}</h3>
+          {/* Description */}
+          <p className="svc-card-desc">{s.desc}</p>
 
-        {/* Description */}
-        <p className="svc-card-desc">{s.desc}</p>
+          {/* Technology tags */}
+          <div className="svc-card-tags" aria-label={`Technologies for ${s.title}`}>
+            {s.tags.map((t) => (
+              <span key={t} className="svc-card-tag">{t}</span>
+            ))}
+          </div>
 
-        {/* Duration */}
-        <div className="svc-card-meta">
-          <span className="svc-card-dur">{s.dur}</span>
-        </div>
+          {/* Duration */}
+          <div className="svc-card-footer">
+            <span className="svc-card-dur">{s.dur}</span>
 
-        {/* Technology tags */}
-        <div className="svc-card-tags" aria-label={`Technologies for ${s.title}`}>
-          {s.tags.map((t) => (
-            <span key={t} className="svc-card-tag">{t}</span>
-          ))}
-        </div>
-
-        {/* Card CTA */}
-        <div className="svc-card-action">
-          {isServicesPage ? (
-            <Link className="svc-card-btn" href={`/contact?service=${encodeURIComponent(s.title)}`}>
-              <span>Scope this practice</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M7 17L17 7M17 7H7M17 7V17" />
-              </svg>
-            </Link>
-          ) : (
-            <Link className="svc-card-btn" href={`/services#${s.code}`}>
-              <span>Learn more</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
-          )}
+            {/* Card CTA */}
+            {isServicesPage ? (
+              <Link className="svc-card-btn" href={`/contact?service=${encodeURIComponent(s.title)}`}>
+                <span>Scope</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </Link>
+            ) : (
+              <Link className="svc-card-btn" href={`/services#${s.code}`}>
+                <span>Learn more</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </Link>
+            )}
+          </div>
         </div>
       </article>
     );
