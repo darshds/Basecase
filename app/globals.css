@@ -2184,6 +2184,12 @@ textarea {
 @media (max-width: 600px) {
   .svc-cards-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+    auto-rows: minmax(auto, auto);
+  }
+
+  .svc-card {
+    padding: 24px 20px 18px;
   }
 
   .svc-card-large {
@@ -2193,39 +2199,67 @@ textarea {
   .svc-card-small {
     grid-column: span 1;
   }
+
+  .svc-card-title {
+    font-size: 18px;
+  }
+
+  .svc-card-small .svc-card-title {
+    font-size: 16px;
+  }
 }
 
 .svc-card {
   position: relative;
-  background: var(--paper-raised);
-  border: 1px solid var(--rule);
-  border-top: 3px solid var(--signal);
-  padding: 28px 24px 20px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 32px 28px 24px;
   display: flex;
   flex-direction: column;
   gap: 0;
-  transition: box-shadow var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
+  transition: all var(--transition-base);
   overflow: hidden;
+  border-radius: 12px;
+}
+
+[data-theme="dark"] .svc-card {
+  background: rgba(30, 41, 59, 0.6);
+  border-color: rgba(96, 165, 250, 0.1);
+}
+
+.svc-card-image {
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+  z-index: 0;
+}
+
+.svc-card:hover .svc-card-image {
+  opacity: 0.25;
 }
 
 .svc-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(160deg, var(--signal-bg) 0%, transparent 55%);
+  background: none;
   pointer-events: none;
-  transition: opacity var(--transition-fast);
   opacity: 0;
 }
 
 .svc-card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-  border-top-color: var(--signal-light);
+  box-shadow: 0 8px 32px rgba(96, 165, 250, 0.15);
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(96, 165, 250, 0.2);
 }
 
-.svc-card:hover::before {
-  opacity: 1;
+[data-theme="dark"] .svc-card:hover {
+  background: rgba(30, 41, 59, 0.8);
+  box-shadow: 0 8px 32px rgba(96, 165, 250, 0.2);
 }
 
 .svc-card-inner {
@@ -2234,6 +2268,7 @@ textarea {
   height: 100%;
   position: relative;
   z-index: 1;
+  gap: 12px;
 }
 
 .svc-card-meta {
@@ -2265,18 +2300,30 @@ textarea {
 .svc-card-title {
   font-family: var(--display), sans-serif;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 22px;
   letter-spacing: -0.02em;
   color: var(--ink);
-  margin: 0 0 10px;
-  line-height: 1.15;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.svc-card-small .svc-card-title {
+  font-size: 18px;
+}
+
+.svc-card-short-desc {
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.4;
 }
 
 .svc-card-desc {
-  font-size: 13.5px;
+  font-size: 13px;
   color: var(--ink-soft);
-  line-height: 1.65;
-  margin: 0 0 16px;
+  line-height: 1.6;
+  margin: 0;
   flex-grow: 1;
   text-wrap: pretty;
 }
@@ -2307,23 +2354,25 @@ textarea {
 .svc-card-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
-  margin-bottom: 18px;
+  gap: 6px;
+  margin: 6px 0 0 0;
 }
 
 .svc-card-tag {
   font-family: var(--mono), monospace;
   font-size: 9px;
-  letter-spacing: 0.05em;
-  border: 1px solid var(--rule);
-  padding: 3px 8px;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  padding: 4px 10px;
   color: var(--ink-muted);
-  background: var(--paper);
+  background: rgba(96, 165, 250, 0.08);
   transition: all var(--transition-fast);
+  border-radius: 4px;
 }
 
 .svc-card:hover .svc-card-tag {
-  border-color: color-mix(in srgb, var(--signal) 40%, var(--rule));
+  border-color: rgba(96, 165, 250, 0.4);
+  background: rgba(96, 165, 250, 0.12);
 }
 
 .svc-card-footer {
@@ -2332,7 +2381,7 @@ textarea {
   justify-content: space-between;
   margin-top: auto;
   padding-top: 16px;
-  border-top: 1px solid var(--rule);
+  border-top: 1px solid rgba(96, 165, 250, 0.15);
   gap: 12px;
 }
 

@@ -39,16 +39,26 @@ export default function ServiceGrid({ featuredOnly = false, items, isServicesPag
         id={s.code}
         role="listitem"
       >
+        {/* Image/Gradient Background */}
+        {s.image && (
+          <div className="svc-card-image" style={{ background: s.image }} aria-hidden="true" />
+        )}
+
         <div className="svc-card-inner">
           {/* Service name */}
           <h3 className="svc-card-title">{s.title}</h3>
 
-          {/* Description */}
-          <p className="svc-card-desc">{s.desc}</p>
+          {/* Short description for large cards */}
+          {isLarge && s.shortDesc && (
+            <p className="svc-card-short-desc">{s.shortDesc}</p>
+          )}
+
+          {/* Full Description - only on large cards */}
+          {isLarge && <p className="svc-card-desc">{s.desc}</p>}
 
           {/* Technology tags */}
           <div className="svc-card-tags" aria-label={`Technologies for ${s.title}`}>
-            {s.tags.map((t) => (
+            {s.tags.slice(0, isLarge ? 3 : 2).map((t) => (
               <span key={t} className="svc-card-tag">{t}</span>
             ))}
           </div>
