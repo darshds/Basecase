@@ -4669,9 +4669,10 @@ legend {
   }
 }
 
-/* Portrait / phone: the frame takes the top of the stage, the copy panel is
-   anchored to the bottom and overlaps the photo edge, the rail sits on top. */
-@media(max-width: 760px), ((orientation: portrait) and (max-width: 1024px)) {
+/* Tablet portrait: the frame takes the top of the stage, the copy panel is
+   anchored to the bottom and overlaps the photo edge, the rail sits on top.
+   Phones skip the story entirely (static block at the end of this section). */
+@media (min-width: 761px) and (orientation: portrait) and (max-width: 1024px) {
   :root {
     --story-len: 6;
   }
@@ -4773,8 +4774,8 @@ legend {
   }
 }
 
-/* Short phones: tighter panel so the tallest beat still clears the rail */
-@media(max-width: 760px) and (max-height: 760px) {
+/* Short tablets: tighter panel so the tallest beat still clears the rail */
+@media (min-width: 761px) and (orientation: portrait) and (max-width: 1024px) and (max-height: 760px) {
   .story-beat {
     padding: 14px 16px 16px;
   }
@@ -4808,12 +4809,15 @@ legend {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+/* Static opener: reduced motion, or phones where the story is skipped and
+   the hero renders exactly as designed. */
+@media (prefers-reduced-motion: reduce), (max-width: 760px) {
   .story {
     height: auto;
   }
   .story-stage {
     position: relative;
+    top: 0;
     height: auto;
     overflow: visible;
   }
@@ -4824,6 +4828,15 @@ legend {
     position: relative;
     padding: clamp(44px, 6vw, 84px) 0 clamp(36px, 4.5vw, 56px);
     pointer-events: auto;
+  }
+  .hero-after {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .story-hero {
+    padding: 20px 0 8px;
   }
   .story-hero [data-land] {
     opacity: 1 !important;

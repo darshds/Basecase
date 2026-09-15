@@ -263,7 +263,13 @@ export default function ScrollStory({ children }) {
   const segRefs = useRef([]);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    // Phones get the plain hero (matches the static block in globals.css).
+    if (
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      window.matchMedia('(max-width: 760px)').matches
+    ) {
+      return undefined;
+    }
 
     const root = rootRef.current;
     const stage = stageRef.current;
